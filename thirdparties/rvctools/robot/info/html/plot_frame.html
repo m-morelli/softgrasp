@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="http://www.petercorke.com/RVC/common/toolboxhelp.css">
+    <title>M-File Help: plot_frame</title>
+  </head>
+  <body>
+  <table border="0" cellspacing="0" width="100%">
+    <tr class="subheader">
+      <td class="headertitle">M-File Help: plot_frame</td>
+      <td class="subheader-left"><a href="matlab:open plot_frame">View code for plot_frame</a></td>
+    </tr>
+  </table>
+<h1>plot_frame</h1><p><span class="helptopic">Plot a coordinate frame represented by a homogeneous transformation</span></p><span style="color:red>trplot</span>(<strong>T</strong>, <strong>options</strong>) draws a coordinate frame corresponding to the homogeneous
+transformation <strong>T</strong>.
+
+<h2>Options</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1">'color',  c</td> <td>Specify color of the axes, Matlab colorspec</td></tr>
+</table>
+'axes'
+'axis'
+
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1">'name',  n</td> <td>Specify the name of the coordinate frame,</td></tr>
+</table>
+'framename', n
+'text_opts', to
+
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1">'view',  v</td> <td>Specify the view angle for the Matlab axes</td></tr>
+</table>
+'width', w
+'arrow'
+'length', l  Specify length of the axes (default 1)
+
+Examples:
+
+<pre style="width: 90%%;" class="examples">
+trplot(&nbsp;T,&nbsp;'color',&nbsp;'r');
+trplot(&nbsp;T,&nbsp;'color',&nbsp;'r',&nbsp;'name',&nbsp;'B')
+</pre>
+<hr>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr class="subheader" valign="top"><td>&nbsp;</td></tr></table>
+<p class="copy">&copy; 1990-2011 Peter Corke.</p>
+</body></html>

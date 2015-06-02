@@ -1,0 +1,203 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="http://www.petercorke.com/RVC/common/toolboxhelp.css">
+    <title>M-File Help: Link</title>
+  </head>
+  <body>
+  <table border="0" cellspacing="0" width="100%">
+    <tr class="subheader">
+      <td class="headertitle">M-File Help: Link</td>
+      <td class="subheader-left"><a href="matlab:open Link">View code for Link</a></td>
+    </tr>
+  </table>
+<h1>Link</h1><p><span class="helptopic">Robot manipulator Link class</span></p>A <span style="color:red>Link</span> object holds all information related to a robot link such as
+kinematics parameteres, rigid-body inertial parameters, motor and
+transmission parameters.
+
+L = <span style="color:red>Link</span>([theta d a alpha]) is a link object with the specified kinematic
+parameters theta, d, a and alpha.
+
+<h2>Methods</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> A </td> <td>return link transform (A) matrix</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> RP</td> <td>return joint type: 'R' or 'P'</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> friction</td> <td>return friction force</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> nofriction</td> <td>return Link object with friction parameters set to zero</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> dyn</td> <td>display link dynamic parameters</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> islimit</td> <td>true if joint exceeds soft limit</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> isrevolute</td> <td>true if joint is revolute</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> isprismatic</td> <td>true if joint is prismatic</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> nofriction</td> <td>remove joint friction</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> display</td> <td>print the link parameters in human readable form</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> char</td> <td>convert the link parameters to human readable string</td></tr>
+</table>
+<h2>Properties (read/write)</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> alpha</td> <td>kinematic: link twist</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> a </td> <td>kinematic: link twist</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> theta</td> <td>kinematic: link twist</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> d </td> <td>kinematic: link twist</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> sigma</td> <td>kinematic: 0 if revolute, 1 if prismatic</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> mdh</td> <td>kinematic: 0 if standard D&H, else 1</td></tr>
+</table>
+offset  kinematic: joint variable offset
+
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> qlim</td> <td>kinematic: joint variable limits [min max]</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> m </td> <td>dynamic: link mass</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> r </td> <td>dynamic: link COG wrt link coordinate frame 3x1</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> I </td> <td>dynamic: link inertia matrix, symmetric 3x3, about link COG.</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> B </td> <td>dynamic: link viscous friction (motor referred)</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> Tc</td> <td>dynamic: link Coulomb friction</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> G </td> <td>actuator: gear ratio</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> J </td> <td>actuator: motor inertia (motor referred)</td></tr>
+</table>
+<h2>Notes</h2>
+<ul>
+  <li>this is reference class object</li>
+  <li>Link objects can be used in vectors and arrays</li>
+</ul>
+<h2>See also</h2>
+<p>
+<a href="matlab:doc SerialLink">SerialLink</a>, <a href="matlab:doc Link.Link">Link.Link</a></p>
+<hr>
+<a name="A"><h1>Link.A</h1></a>
+<p><span class="helptopic">Link transform matrix</span></p><strong>T</strong> = L.<span style="color:red>A</span>(<strong>q</strong>) is the 4x4 link homogeneous transformation matrix corresponding
+to the link variable <strong>q</strong> which is either theta (revolute) or d (prismatic).
+
+<h2>Notes</h2>
+<ul>
+  <li>For a revolute joint the theta parameter of the link is ignored, and Q used instead.</li>
+  <li>For a prismatic joint the d parameter of the link is ignored, and Q used instead.</li>
+  <li>The link offset parameter is added to Q before computation of the transformation matrix.</li>
+</ul>
+<hr>
+<a name="Link"><h1>Link.Link</h1></a>
+<p><span class="helptopic">Create robot link object</span></p>This is class constructor function which has several call signatures.
+
+<strong>L</strong> = <span style="color:red>Link</span>() is a <span style="color:red>Link</span> object with default parameters.
+
+<strong>L</strong> = <span style="color:red>Link</span>(<strong>l1</strong>) is a <span style="color:red>Link</span> object that is a deep copy of the object <strong>l1</strong>.
+
+<strong>L</strong> = <span style="color:red>Link</span>(<strong>dh</strong>, <strong>options</strong>) is a link object formed from the kinematic
+parameter vector:
+
+<ul>
+  <li>DH = [theta d a alpha sigma offset] where offset is a constant added to
+the joint angle variable before forward kinematics and is useful if you
+want the robot to adopt a 'sensible' pose for zero joint angle
+configuration.</li>
+  <li>DH = [theta d a alpha sigma] where sigma=0 for a revolute and 1 for a
+prismatic joint, offset is zero.</li>
+  <li>DH = [theta d a alpha], joint is assumed revolute and offset is zero.</li>
+</ul>
+<h2>Options</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> 'standard'</td> <td>for standard D&H parameters (default).</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> 'modified'</td> <td>for modified D&H parameters.</td></tr>
+</table>
+Notes:
+
+<ul>
+  <li>Link object is a reference object, a subclass of Handle object.</li>
+  <li>Link objects can be used in vectors and arrays</li>
+  <li>the parameter theta or d is unused in a revolute or prismatic
+joint respectively, it is simply a placeholder for the joint
+variable passed to L.A()</li>
+  <li>the link dynamic (inertial and motor) parameters are all set to
+zero.  These must be set by explicitly assigning the object
+properties: m, r, I, Jm, B, Tc, G.</li>
+</ul>
+<hr>
+<a name="RP"><h1>Link.RP</h1></a>
+<p><span class="helptopic">Joint type</span></p><strong>c</strong> = L.<span style="color:red>RP</span>() is a character 'R' or 'P' depending on whether joint is revolute or
+prismatic respectively.
+If L is a vector of <span style="color:red>Link</span> objects return a string of characters in joint order.
+
+<hr>
+<a name="char"><h1>Link.char</h1></a>
+<p><span class="helptopic">String representation of parameters</span></p><strong>s</strong> = L.<span style="color:red>char</span>() is a string showing link parameters in compact single line format.
+If L is a vector of <span style="color:red>Link</span> objects return a string with one line per <span style="color:red>Link</span>.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Link.display">Link.display</a></p>
+<hr>
+<a name="display"><h1>Link.display</h1></a>
+<p><span class="helptopic">Display parameters</span></p>L.<span style="color:red>display</span>() <span style="color:red>display</span> link parameters in compact single line format.  If L is a
+vector of <span style="color:red>Link</span> objects <span style="color:red>display</span> one line per element.
+
+<h2>Notes</h2>
+<ul>
+  <li>this method is invoked implicitly at the command line when the result
+of an expression is a Link object and the command has no trailing
+semicolon.</li>
+</ul>
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Link.char">Link.char</a>, <a href="matlab:doc Link.dyn">Link.dyn</a>, <a href="matlab:doc SerialLink.showlink">SerialLink.showlink</a></p>
+<hr>
+<a name="dyn"><h1>Link.dyn</h1></a>
+<p><span class="helptopic">Display the inertial properties of link</span></p>L.<span style="color:red>dyn</span>() displays the inertial properties of the link object in a multi-line format.
+The properties shown are mass, centre of mass, inertia, friction, gear ratio
+and motor properties.
+
+If L is a vector of <span style="color:red>Link</span> objects show properties for each element.
+
+<hr>
+<a name="friction"><h1>Link.friction</h1></a>
+<p><span class="helptopic">Joint friction force</span></p><strong>f</strong> = L.<span style="color:red>friction</span>(<strong>qd</strong>) is the joint <span style="color:red>friction</span> force/torque for link velocity <strong>qd</strong>
+
+<hr>
+<a name="islimit"><h1>Link.islimit</h1></a>
+<p><span class="helptopic">Test joint limits</span></p>L.<span style="color:red>islimit</span>(<strong>q</strong>) is true (1) if <strong>q</strong> is outside the soft limits set for this joint.
+
+<hr>
+<a name="isprismatic"><h1>Link.isprismatic</h1></a>
+<p><span class="helptopic">Test if joint is prismatic</span></p>L.<span style="color:red>isprismatic</span>() is true (1) if joint is prismatic.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Link.isrevolute">Link.isrevolute</a></p>
+<hr>
+<a name="isrevolute"><h1>Link.isrevolute</h1></a>
+<p><span class="helptopic">Test if joint is revolute</span></p>L.<span style="color:red>isrevolute</span>() is true (1) if joint is revolute.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Link.isprismatic">Link.isprismatic</a></p>
+<hr>
+<a name="nofriction"><h1>Link.nofriction</h1></a>
+<p><span class="helptopic">Remove friction</span></p><strong>ln</strong> = L.<span style="color:red>nofriction</span>() is a link object with the same parameters as L except
+nonlinear (Coulomb) friction parameter is zero.
+
+<strong>ln</strong> = L.<span style="color:red>nofriction</span>('all') is a link object with the same parameters as L
+except all friction parameters are zero.
+
+<hr>
+<a name="set.I"><h1>Link.set.I</h1></a>
+<p><span class="helptopic">Set link inertia</span></p>L.I = [Ixx Iyy Izz] set <span style="color:red>Link</span> inertia to a diagonal matrix.
+
+L.I = [Ixx Iyy Izz Ixy Iyz Ixz] set <span style="color:red>Link</span> inertia to a symmetric matrix with
+specified intertia and product of intertia elements.
+
+L.I = M set <span style="color:red>Link</span> inertia matrix to 3x3 matrix M (which must be symmetric).
+
+<hr>
+<a name="set.Tc"><h1>Link.set.Tc</h1></a>
+<p><span class="helptopic">Set Coulomb friction</span></p>L.Tc = F set Coulomb friction parameters to [-F F], for a symmetric
+Coulomb friction model.
+
+L.Tc = [FP FM] set Coulomb friction to [FP FM], for an asymmetric
+Coulomb friction model. FP&amp;gt;0 and FM&amp;lt;0.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Link.friction">Link.friction</a></p>
+<hr>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr class="subheader" valign="top"><td>&nbsp;</td></tr></table>
+<p class="copy">&copy; 1990-2011 Peter Corke.</p>
+</body></html>

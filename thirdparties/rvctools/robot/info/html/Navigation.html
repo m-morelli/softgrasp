@@ -1,0 +1,127 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="http://www.petercorke.com/RVC/common/toolboxhelp.css">
+    <title>M-File Help: Navigation</title>
+  </head>
+  <body>
+  <table border="0" cellspacing="0" width="100%">
+    <tr class="subheader">
+      <td class="headertitle">M-File Help: Navigation</td>
+      <td class="subheader-left"><a href="matlab:open Navigation">View code for Navigation</a></td>
+    </tr>
+  </table>
+<h1>Navigation</h1><p><span class="helptopic">Navigation superclass</span></p>An abstract superclass for implementing navigation classes.
+
+<strong>nav</strong> = <span style="color:red>Navigation</span>(<strong>occgrid</strong>, <strong>options</strong>) is an instance of the <span style="color:red>Navigation</span> object.
+
+<h2>Methods</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> visualize</td> <td>display the occupancy grid</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> plan</td> <td>plan a path to goal</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> path</td> <td>return/animate a path from start to goal</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> display</td> <td>print the parameters in human readable form</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> char</td> <td>convert the parameters to a human readable string</td></tr>
+</table>
+<h2>Properties (read only)</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> occgrid</td> <td>occupancy grid representing the navigation environment</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> goal</td> <td>goal coordinate</td></tr>
+</table>
+<h2>Methods to be provided in subclass</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> goal_set</td> <td>set the goal</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> world_set</td> <td>set the occupancy grid</td></tr>
+</table>
+navigate_init
+
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> plan</td> <td>generate a plan for motion to goal</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> next</td> <td>returns coordinate of next point on path</td></tr>
+</table>
+<h2>Notes</h2>
+<ul>
+  <li>subclasses the Matlab handle class which means that pass by reference semantics
+apply.</li>
+</ul>
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Dstar">Dstar</a>, <a href="matlab:doc dxform">dxform</a>, <a href="matlab:doc PRM">PRM</a>, <a href="matlab:doc RRT">RRT</a></p>
+<hr>
+<a name="Navigation"><h1>Navigation.Navigation</h1></a>
+<p><span class="helptopic">Create a Navigation object</span></p><strong>n</strong> = <span style="color:red>Navigation</span>(<strong>occgrid</strong>, <strong>options</strong>) is a <span style="color:red>Navigation</span> object that holds an
+occupancy grid <strong>occgrid</strong>.  A number of <strong>options</strong> can be be passed.
+
+<h2>Options</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1">'navhook', F</td> <td>Specify a function to be called at every step of path</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1">'seed',  s</td> <td>Specify an initial random number seed</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1">'goal',  g</td> <td>Specify the goal point</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> 'verbose'</td> <td>Display debugging information</td></tr>
+</table>
+<hr>
+<a name="char"><h1>Navigation.char</h1></a>
+<p><span class="helptopic">Convert navigation object to string</span></p>N.<span style="color:red>char</span>() is a string representing the state of the navigation
+object in human-readable form.
+
+<hr>
+<a name="display"><h1>Navigation.display</h1></a>
+<p><span class="helptopic">Display status of navigation object</span></p>N.<span style="color:red>display</span>() <span style="color:red>display</span> the state of the navigation object in
+human-readable form.
+
+<h2>Notes</h2>
+<ul>
+  <li>this method is invoked implicitly at the command line when the result
+of an expression is a Navigation object and the command has no trailing
+semicolon.</li>
+</ul>
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Navigation.char">Navigation.char</a></p>
+<hr>
+<a name="path"><h1>Navigation.path</h1></a>
+<p><span class="helptopic">Follow path from start to goal</span></p>N.<span style="color:red>path</span>(<strong>start</strong>) animates the robot moving from <strong>start</strong> to the goal (which is a property of
+the object).
+
+N.<span style="color:red>path</span>() display the occupancy grid, prompt the user to click a start location,
+then compute a <span style="color:red>path</span> from this point to the goal (which is a property of
+the object).
+
+<strong>x</strong> = N.<span style="color:red>path</span>(<strong>start</strong>) returns the <span style="color:red>path</span> from <strong>start</strong> to the goal (which is a property of
+the object).
+
+The method performs the following steps:
+
+<ul>
+  <li>get start position interactively if not given</li>
+  <li>initialized navigation, invoke method N.navigate_init()</li>
+  <li>visualize the environment, invoke method N.visualize()</li>
+  <li>iterate on the next() method of the subclass</li>
+</ul>
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Navigation.visualize">Navigation.visualize</a>, <a href="matlab:doc Navigation.goal">Navigation.goal</a></p>
+<hr>
+<a name="verbosity"><h1>Navigation.verbosity</h1></a>
+<p><span class="helptopic">Set verbosity</span></p>N.<span style="color:red>verbosity</span>(<strong>v</strong>) set <span style="color:red>verbosity</span> to <strong>v</strong>, where 0 is silent and greater
+values display more information.
+
+<hr>
+<a name="visualize"><h1>Navigation.visualize</h1></a>
+<p><span class="helptopic">Visualize navigation environment</span></p>N.<span style="color:red>visualize</span>() displays the occupancy grid in a new figure.
+
+N.<span style="color:red>visualize</span>(<strong>p</strong>) displays the occupancy grid in a new figure, and
+shows the path points <strong>p</strong> which is an Nx2 matrix.
+
+<h2>Options</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> 'goal'</td> <td>Superimpose the goal position if set</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1">'distance', D</td> <td>Display a distance field D behind the obstacle map.  D is
+a matrix of the same size as the occupancy grid.</td></tr>
+</table>
+<hr>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr class="subheader" valign="top"><td>&nbsp;</td></tr></table>
+<p class="copy">&copy; 1990-2011 Peter Corke.</p>
+</body></html>

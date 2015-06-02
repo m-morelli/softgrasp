@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="http://www.petercorke.com/RVC/common/toolboxhelp.css">
+    <title>M-File Help: plot_circle</title>
+  </head>
+  <body>
+  <table border="0" cellspacing="0" width="100%">
+    <tr class="subheader">
+      <td class="headertitle">M-File Help: plot_circle</td>
+      <td class="subheader-left"><a href="matlab:open plot_circle">View code for plot_circle</a></td>
+    </tr>
+  </table>
+<h1>plot_circle</h1><p><span class="helptopic">Draw a circle on the current plot</span></p><span style="color:red>plot_circle</span>(<strong>C</strong>, <strong>R</strong>, <strong>options</strong>) draws a circle on the current plot with
+centre <strong>C</strong>=[X Y] and radius <strong>R</strong>.  If <strong>C</strong>=[X Y Z] the circle is drawn in the
+XY-plane at height Z.
+
+If <strong>C</strong> (2xN or 3xN) and <strong>R</strong> (1xN) then a set of N circles are drawn with
+centre and radius taken from the columns of <strong>C</strong> and <strong>R</strong>.
+
+<h2>Options</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> 'edgecolor'</td> <td>the color of the circle's edge, Matlab color spec</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> 'fillcolor'</td> <td>the color of the circle's interior, Matlab color spec</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> 'alpha'</td> <td>transparency of the filled circle: 0=transparent, 1=solid.</td></tr>
+</table>
+<h2>Notes</h2>
+<ul>
+  <li>the option can be either a simple linespec (eg. 'r', 'g:') for a
+non-filled circle, or a set of name, value pairs that are passed
+to plot.</li>
+</ul>
+<h2>Examples</h2>
+<pre style="width: 90%%;" class="examples">
+plot_circle(c,&nbsp;r,&nbsp;'r');
+plot_circle(c,&nbsp;r,&nbsp;'fillcolor',&nbsp;'b');
+plot_circle(c,&nbsp;r,&nbsp;'edgecolor',&nbsp;'g',&nbsp;'LineWidth',&nbsp;5);
+</pre>
+<h2>See also</h2>
+<p>
+<a href="matlab:doc plot">plot</a></p>
+<hr>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr class="subheader" valign="top"><td>&nbsp;</td></tr></table>
+<p class="copy">&copy; 1990-2011 Peter Corke.</p>
+</body></html>

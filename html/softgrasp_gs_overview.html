@@ -1,0 +1,163 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Product Overview</title><meta name="generator" content="MATLAB 7.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2013-12-27"><meta name="DC.source" content="softgrasp_gs_overview.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+
+  </style></head><body><div class="content"><h1>Product Overview</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">What is SoftGrasp?</a></li><li><a href="#4">Related Software</a></li><li><a href="#5">SoftGrasp's Key Features</a></li><li><a href="#6">Acknowledgments</a></li></ul></div><h2>What is SoftGrasp?<a name="1"></a></h2><p>The SoftGrasp toolbox is a new open-source software library for use with MATLAB to model robotic grasping systems such as cooperating arms, closed-chain mechanisms and underactuated hands.</p><p>SoftGrasp includes models of generalized compliance at contacts and in the actuation mechanism, and enables kineto-static analysis of grasp that encompasses elastic motions, statically indeterminate configurations, and pre-loaded initial conditions. It is based on the <i>softly underactuated</i> model of hands described in [12], where the hand configuration driven by <i>synergies</i> [1] modifies its posture according to the object shape and compliance.</p><p>SoftGrasp provides a clean object-oriented API that enforces the consistency of data structures, helps to manage software complexity easily and fosters code-reuse. The toolbox also offers a simple interface to OpenRAVE [10], so that contact points and normals can be computed for real-world grasp tasks by using the powerful planning tools this platform provides.</p><h2>Related Software<a name="4"></a></h2><p>Differently from what happens in other field of robotics, e.g. industrial and mobile robotics, the variety of analysis and simulation tools available for robotic grasping is rather limited.</p><p>GraspIt![7] is an open-source virtual environment for planning and simulation of robotic grasping tasks. It features a contact determination system and a grasp planner, provides techniques for grasp analysis and includes eigengrasps information for many dexterous robotic hand models, according to the rigid synergy model described in [6]. However, GraspIt! is based on an analytical approach that abstracts the analysis from the specific physical characteristics of the grasping hand: it cannot distinguish contact forces that may be actively controlled by joint variables from those that cannot, as described in [8], and this may lead to misleading results. In addition, the MATLAB interface that allows script programming is no longer tested and maintained and its less modular architecture makes it difficult to improve and integrate with other tools and frameworks.</p><p>OpenGRASP [9] is an open-source simulation toolkit for grasp planning and dexterous manipulation analysis. It takes advantage of strength points of OpenRAVE, such as the modular plugin-based architecture and scripting environments for Python, and adds specific features towards the realization of an advanced grasping simulator. OpenGRASP provides some methods for computing force closure metrics, such as the Volume Metric and the Grasp Wrench Space formulation, but does not implement any algorithm for computing the joint actuations that result in an optimal grasp force distribution to a specific external disturbance. It supports joint coupling modeling through mimic joints, but only underactuations that command the joint displacements directly can be described.</p><p>SynGrasp [11] is a MATLAB toolbox recently developed within the Projects [2], [3] for grasp analysis of human and robotic hands. It enables modeling of joint coupling and underactuations according to the <i>soft</i> synergy model described in [4], [5], as opposed to the rigid synergy model of GraspIt! and OpenGRASP. However, it does not implement the analysis framework described in [12], where the grasp problem is studied as a whole and relevant properties, such as <i>pure</i> and <i>spurious squeeze</i> and <i>kinematic grasp displacements</i>, are computed from a numerical decomposition of its solution space. In addition, the toolbox is not meant to be used also outside the THE context or in conjunction with other simulators, and its minimalistic application programming interface (API) does not enforce data encapsulation (being designed around MATLAB's structure arrays instead of classes).</p><h2>SoftGrasp's Key Features<a name="5"></a></h2><p>GraspIt! and OpenGRASP are powerful simulators that perform great in grasp planning and contact detection. SoftGrasp focuses on, and is more suitable with, the study of effects of postural synergies on the quality of the grasp and the optimization of the distribution of grasp forces, once a grasp is established.</p><p>SynGrasp and SoftGrasp are similar in scope. However, SoftGrasp offers the following unique features:</p><div><ul><li>the possibility of using a screw-theory-based description of the grasp problem, according to [13];</li><li>a modular composition of the <i>Fundamental Grasp Matrix</i> (FGM) [12], with the possibility of introducing <i>compliant joints</i>, <i>variable stiffness actuators</i> (VSA), <i>hard</i> and <i>soft synergies</i>, and/or other user defined features;</li><li>a collection of algorithms performing a numerical decomposition of the solution space and returning relevant properties of grasp, according to [12];</li><li>a clean <i>object-oriented API</i> that enforces the consistency of data structures and fosters code-reuse;</li><li>a (simple) <i>interface to OpenRAVE/OpenGRASP</i>.</li></ul></div><h2>Acknowledgments<a name="6"></a></h2><p>In Progress.</p><p>Authors, EU FP7 Projects (THE, SoftHands, ...?)</p><p class="footer"><br>
+      Published with MATLAB&reg; 7.14<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Product Overview
+%
+
+%% What is SoftGrasp?
+%
+% The SoftGrasp toolbox is a new open-source software library for use with
+% MATLAB to model robotic grasping systems such as cooperating arms,
+% closed-chain mechanisms and underactuated hands.
+
+%%
+% SoftGrasp includes models of generalized compliance at contacts and in
+% the actuation mechanism, and enables kineto-static analysis of grasp that
+% encompasses elastic motions, statically indeterminate configurations, and
+% pre-loaded initial conditions. It is based on the _softly underactuated_
+% model of hands described in [12], where the hand configuration driven by
+% _synergies_ [1] modifies its posture according to the object shape and
+% compliance.
+
+%%
+% SoftGrasp provides a clean object-oriented API that enforces the
+% consistency of data structures, helps to manage software complexity
+% easily and fosters code-reuse. The toolbox also offers a simple interface
+% to OpenRAVE [10], so that contact points and normals can be computed for
+% real-world grasp tasks by using the powerful planning tools this platform
+% provides.
+
+%% Related Software
+%
+% Differently from what happens in other field of robotics, e.g. industrial
+% and mobile robotics, the variety of analysis and simulation tools
+% available for robotic grasping is rather limited.
+%
+% GraspIt![7] is an open-source virtual environment for planning and
+% simulation of robotic grasping tasks. It features a contact determination
+% system and a grasp planner, provides techniques for grasp analysis and
+% includes eigengrasps information for many dexterous robotic hand models,
+% according to the rigid synergy model described in [6]. However, GraspIt!
+% is based on an analytical approach that abstracts the analysis from the
+% specific physical characteristics of the grasping hand: it cannot
+% distinguish contact forces that may be actively controlled by joint
+% variables from those that cannot, as described in [8], and this may lead
+% to misleading results. In addition, the MATLAB interface that allows
+% script programming is no longer tested and maintained and its less
+% modular architecture makes it difficult to improve and integrate with
+% other tools and frameworks.
+%
+% OpenGRASP [9] is an open-source simulation toolkit for grasp planning and
+% dexterous manipulation analysis. It takes advantage of strength points of
+% OpenRAVE, such as the modular plugin-based architecture and scripting
+% environments for Python, and adds specific features towards the
+% realization of an advanced grasping simulator. OpenGRASP provides some
+% methods for computing force closure metrics, such as the Volume Metric
+% and the Grasp Wrench Space formulation, but does not implement any
+% algorithm for computing the joint actuations that result in an optimal
+% grasp force distribution to a specific external disturbance. It supports
+% joint coupling modeling through mimic joints, but only underactuations
+% that command the joint displacements directly can be described.
+%
+% SynGrasp [11] is a MATLAB toolbox recently developed within the Projects
+% [2], [3] for grasp analysis of human and robotic hands. It enables
+% modeling of joint coupling and underactuations according to the _soft_
+% synergy model described in [4], [5], as opposed to the rigid synergy
+% model of GraspIt! and OpenGRASP. However, it does not implement the
+% analysis framework described in [12], where the grasp problem is studied
+% as a whole and relevant properties, such as _pure_ and _spurious squeeze_
+% and _kinematic grasp displacements_, are computed from a numerical
+% decomposition of its solution space. In addition, the toolbox is not
+% meant to be used also outside the THE context or in conjunction with
+% other simulators, and its minimalistic application programming interface
+% (API) does not enforce data encapsulation (being designed around MATLAB's
+% structure arrays instead of classes).
+
+%% SoftGrasp's Key Features
+%
+% GraspIt! and OpenGRASP are powerful simulators that perform great in
+% grasp planning and contact detection. SoftGrasp focuses on, and is more
+% suitable with, the study of effects of postural synergies on the quality
+% of the grasp and the optimization of the distribution of grasp forces,
+% once a grasp is established.
+%
+% SynGrasp and SoftGrasp are similar in scope. However, SoftGrasp offers
+% the following unique features:
+%
+% * the possibility of using a screw-theory-based description of the grasp
+% problem, according to [13];
+% * a modular composition of the _Fundamental Grasp Matrix_ (FGM) [12],
+% with the possibility of introducing _compliant joints_, _variable
+% stiffness actuators_ (VSA), _hard_ and _soft synergies_, and/or other
+% user defined features;
+% * a collection of algorithms performing a numerical decomposition of the
+% solution space and returning relevant properties of grasp, according to
+% [12];
+% * a clean _object-oriented API_ that enforces the consistency of data
+% structures and fosters code-reuse;
+% * a (simple) _interface to OpenRAVE/OpenGRASP_.
+
+%% Acknowledgments
+%
+% In Progress.
+%
+% Authors, EU FP7 Projects (THE, SoftHands, ...?)
+##### SOURCE END #####
+--></body></html>

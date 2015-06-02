@@ -1,0 +1,181 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Precision Grasp-A Circular Object Grasped by a Two-Fingered Robotic Hand</title><meta name="generator" content="MATLAB 7.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2013-12-28"><meta name="DC.source" content="softgrasp_gs_ijrr1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+
+  </style></head><body><div class="content"><h1>Precision Grasp-A Circular Object Grasped by a Two-Fingered Robotic Hand</h1><!--introduction--><p>This one is a 2D example where a two-fingered hand is grasping a circular object with its fingertips. First, a model of the system is created. Then, some of the structural properties of the fully actuated grasp are characterized. Finally, the effect of underactuation on the system properties is evaluated by introducing one synergy.</p><p>The example is taken from [XX]. Please refer to that text for more details on these topics.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Problem Overview</a></li><li><a href="#2">Hand and Object Modeling</a></li><li><a href="#7">Glove and Cover Modeling</a></li></ul></div><h2>Problem Overview<a name="1"></a></h2><p> <IMG ALIGN="CENTERED" src="./ijrr1.png" width="500"
+height="auto"><DIV><B>Fig. 1</B> Grasp of a circular object by a
+two-fingered robotic hand</DIV> </p><p>Consider the manipulation system in Fig. 1,  where a two fingered hand is grasping a circular object of radius <img src="softgrasp_gs_ijrr1_eq85930.png" alt="$R$"> with its fingertips. Each finger is composed by two links of length <img src="softgrasp_gs_ijrr1_eq93576.png" alt="$L$">. Globally, the hand has four revolute joints <img src="softgrasp_gs_ijrr1_eq94866.png" alt="$[j_1, \dots, j_4]$">. Attached to the palm an inertial frame <img src="softgrasp_gs_ijrr1_eq02989.png" alt="${A}$"> is fixed, with origin on the intersection between the axis of <img src="softgrasp_gs_ijrr1_eq78733.png" alt="$j_1$"> and the plane of the figure <img src="softgrasp_gs_ijrr1_eq66865.png" alt="$(XY)$">.</p><p>Attached to the object a frame <img src="softgrasp_gs_ijrr1_eq10264.png" alt="${B}$"> is posed, with origin in the center of the circle, initially parallel to <img src="softgrasp_gs_ijrr1_eq02989.png" alt="${A}$">. The generic displacement <img src="softgrasp_gs_ijrr1_eq88169.png" alt="$\delta u^T=[\delta u_x^T, \delta u_y^T, \delta u_\alpha^T]$"> indicates a linear displacement along the axes <img src="softgrasp_gs_ijrr1_eq03598.png" alt="$X$"> and <img src="softgrasp_gs_ijrr1_eq17977.png" alt="$Y$"> and an angular displacement along <img src="softgrasp_gs_ijrr1_eq14833.png" alt="$Z$">. The displacement of the object is described in coordinates expressed in <img src="softgrasp_gs_ijrr1_eq02989.png" alt="${A}$">.</p><p>Contacts are modeled as <i>planar hard fingers</i>, i.e., the hand can exert only forces along the axes <img src="softgrasp_gs_ijrr1_eq03598.png" alt="$X$"> and <img src="softgrasp_gs_ijrr1_eq17977.png" alt="$Y$">, without moments. On the k- <i>th</i> contact point, two reference frames are introduced, respectively fixed to the  hand and the object and aligned with <img src="softgrasp_gs_ijrr1_eq02989.png" alt="${A}$"> in the reference configuration.</p><p>The following numerical values are assumed for the parameters: <img src="softgrasp_gs_ijrr1_eq49427.png" alt="$L = R = 1$"> m, <img src="softgrasp_gs_ijrr1_eq65237.png" alt="$k_q = 10$"> N/rad, <img src="softgrasp_gs_ijrr1_eq80656.png" alt="$k_c = 10$"> N/m, <img src="softgrasp_gs_ijrr1_eq60282.png" alt="$k_s = 10$"> N/m, and an existing preload <img src="softgrasp_gs_ijrr1_eq37846.png" alt="$\bar{f_{c^o}^{c^h}} = [1,1,-1,1]^T$"> N is considered.</p><pre class="codeinput">t = pi/3; ct = cos(t); st = sin(t); <span class="comment">% from Fig. 1</span>
+L = 1; R = 1;                       <span class="comment">% L, R</span>
+lct = L*ct; lst = L*st;
+m = R +lct; n = 2*m;
+</pre><h2>Hand and Object Modeling<a name="2"></a></h2><p><b><i>Hand Modeling</i></b></p><p>For each finger, the origin and <img src="softgrasp_gs_ijrr1_eq14833.png" alt="$Z$">-axis vectors of joint frames are stored as columns of two matrices, respectively <tt>P</tt> and <tt>Z</tt> (3x2); the forward kinematics map is evaluated at the reference configuration (<img src="softgrasp_gs_ijrr1_eq65020.png" alt="$g_st(0)$">) and is stored as <tt>g_st_0</tt> (4x4). From Fig. 1 and the descriptions above, it follows that</p><pre class="codeinput">P_1 = [0, 0; 0, L; 0, 0];       <span class="comment">% P, Z and g_st_0 for finger 1</span>
+Z_1 = [0, 0; 0, 0; 1, 1];
+g_st0_1 = transl(lct,L+lst,0);
+
+P_2 = [n, n; 0, L; 0, 0];       <span class="comment">% P, Z and g_st_0 for finger 2</span>
+Z_2 = Z_1;
+g_st0_2 = transl(n-lct,L+lst,0);
+</pre><p><tt>Limb</tt> objects match the concept of hand's fingers and are built by the <tt>Limb</tt> constructor, which takes the above parameters as the first three input arguments. The name of a finger is optionally specified by using a <i>property name</i> / <i>property value</i> pair, where the <i>property name</i> is the string <tt>'name'</tt> and the <i>property value</i> is the actual name of the finger.</p><pre class="codeinput">f1 = Limb(Z_1, P_1, g_st0_1, <span class="string">'name'</span>, <span class="string">'fingerOne'</span>);
+f2 = Limb(Z_2, P_2, g_st0_2, <span class="string">'name'</span>, <span class="string">'fingerTwo'</span>);
+</pre><p><tt>Limb|s |f1</tt> and <tt>f2</tt> are concatenated into a single array and are passed to the <tt>Hand</tt> object constructor to build the two-fingered hand model. The model is given a name and a comment. Similarly to name, the comment is specified by a <i>property name</i> / <i>property value</i>; in this case, the <i>property name</i> is the string <tt>'comment'</tt>.</p><pre class="codeinput">hnd = Hand([f1,f2], <span class="string">'name'</span>, <span class="string">'TwoFingerHand'</span>, <span class="string">'comment'</span>, <span class="string">'Gabiccini et Al. IJRR 2013 - Par. 9.1'</span>);
+</pre><p><b><i>Object Modeling</i></b></p><p>The manipulated (target) object is simply created by the following command.</p><pre class="codeinput">mob = ManipulatedObject(<span class="string">'name'</span>, <span class="string">'Ball'</span>);
+</pre><p>The code line creates a manipulated object and attaches a default reference frame (with the same orientation as the world frame) to it. The object is given a name, passed to the <tt>ManipulatedObject</tt> constructor.</p><h2>Glove and Cover Modeling<a name="7"></a></h2><p><b>Glove Modeling_</b></p><p>A <tt>Glove</tt> is a data structure that enables the assignment of a specific set of <i>Points of Interest</i> (POIs) to a given hand model.</p><p><b>Cover Modeling_</b></p><p>YY</p><p class="footer"><br>
+      Published with MATLAB&reg; 7.14<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Precision Grasp-A Circular Object Grasped by a Two-Fingered Robotic Hand
+%
+% This one is a 2D example where a two-fingered hand is grasping a circular
+% object with its fingertips. First, a model of the system is created.
+% Then, some of the structural properties of the fully actuated grasp are
+% characterized. Finally, the effect of underactuation on the system
+% properties is evaluated by introducing one synergy.
+%
+% The example is taken from [XX]. Please refer to that text for more
+% details on these topics.
+
+%% Problem Overview
+%
+% <html> <IMG ALIGN="CENTERED" src="./ijrr1.png" width="500"
+% height="auto"><DIV><B>Fig. 1</B> Grasp of a circular object by a
+% two-fingered robotic hand</DIV> </html>
+%
+% Consider the manipulation system in Fig. 1,  where a two fingered hand is
+% grasping a circular object of radius $R$ with its fingertips. Each finger
+% is composed by two links of length $L$. Globally, the hand has four
+% revolute joints $[j_1, \dots, j_4]$. Attached to the palm an inertial
+% frame ${A}$ is fixed, with origin on the intersection between the axis of
+% $j_1$ and the plane of the figure $(XY)$.
+%
+% Attached to the object a frame ${B}$ is posed, with origin in the center
+% of the circle, initially parallel to ${A}$. The generic displacement
+% $\delta u^T=[\delta u_x^T, \delta u_y^T, \delta u_\alpha^T]$ indicates a
+% linear displacement along the axes $X$ and $Y$ and an angular
+% displacement along $Z$. The displacement of the object is described in
+% coordinates expressed in ${A}$.
+%
+% Contacts are modeled as _planar hard fingers_, i.e., the hand can exert
+% only forces along the axes $X$ and $Y$, without moments. On the k- _th_
+% contact point, two reference frames are introduced, respectively fixed to
+% the  hand and the object and aligned with ${A}$ in the reference
+% configuration.
+%
+% The following numerical values are assumed for the parameters: $L = R =
+% 1$ m, $k_q = 10$ N/rad, $k_c = 10$ N/m, $k_s = 10$ N/m, and an existing
+% preload $\bar{f_{c^o}^{c^h}} = [1,1,-1,1]^T$ N is considered.
+t = pi/3; ct = cos(t); st = sin(t); % from Fig. 1
+L = 1; R = 1;                       % L, R
+lct = L*ct; lst = L*st;
+m = R +lct; n = 2*m;
+
+%% Hand and Object Modeling
+%
+% *_Hand Modeling_*
+%
+% For each finger, the origin and $Z$-axis vectors of joint frames are
+% stored as columns of two matrices, respectively |P| and |Z| (3x2); the
+% forward kinematics map is evaluated at the reference configuration
+% ($g_st(0)$) and is stored as |g_st_0| (4x4). From Fig. 1 and the
+% descriptions above, it follows that
+P_1 = [0, 0; 0, L; 0, 0];       % P, Z and g_st_0 for finger 1
+Z_1 = [0, 0; 0, 0; 1, 1];
+g_st0_1 = transl(lct,L+lst,0);
+
+P_2 = [n, n; 0, L; 0, 0];       % P, Z and g_st_0 for finger 2
+Z_2 = Z_1;
+g_st0_2 = transl(n-lct,L+lst,0);
+
+%%
+% |Limb| objects match the concept of hand's fingers and are built by the
+% |Limb| constructor, which takes the above parameters as the first three
+% input arguments. The name of a finger is optionally specified by using a
+% _property name_ / _property value_ pair, where the _property name_ is the
+% string |'name'| and the _property value_ is the actual name of the
+% finger.
+f1 = Limb(Z_1, P_1, g_st0_1, 'name', 'fingerOne');
+f2 = Limb(Z_2, P_2, g_st0_2, 'name', 'fingerTwo');
+
+%%
+% |Limb|s |f1| and |f2| are concatenated into a single array and are passed
+% to the |Hand| object constructor to build the two-fingered hand model.
+% The model is given a name and a comment. Similarly to name, the comment
+% is specified by a _property name_ / _property value_; in this case, the
+% _property name_ is the string |'comment'|.
+hnd = Hand([f1,f2], 'name', 'TwoFingerHand', 'comment', 'Gabiccini et Al. IJRR 2013 - Par. 9.1');
+
+%%
+% *_Object Modeling_*
+%
+% The manipulated (target) object is simply created by the following
+% command.
+mob = ManipulatedObject('name', 'Ball');
+
+%%
+% The code line creates a manipulated object and attaches a default
+% reference frame (with the same orientation as the world frame) to it. The
+% object is given a name, passed to the |ManipulatedObject| constructor.
+
+%% Glove and Cover Modeling
+%
+% *Glove Modeling_*
+%
+% A |Glove| is a data structure that enables the assignment of a specific
+% set of _Points of Interest_ (POIs) to a given hand model.
+%
+% *Cover Modeling_*
+%
+% YY
+##### SOURCE END #####
+--></body></html>

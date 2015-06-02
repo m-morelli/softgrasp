@@ -1,0 +1,169 @@
+% LimbDH. LimbDH Class
+%   Description, in progress
+%
+%   Annotations, in progress
+%
+%   References, in progress
+%
+%   Matteo Morelli, I.R.C. "E. Piaggio", University of Pisa
+%
+%   May 2012
+%   Changed to LimbDH in July 2013
+
+% Copyright (C) 2012, 2013 Interdepartmental Research Center "E. Piaggio", University of Pisa
+%
+% This file is part of THE Robotic Grasping Toolbox for use with MATLAB(R).
+%
+% THE Robotic Grasping Toolbox for use with MATLAB(R) is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% THE Robotic Grasping Toolbox for use with MATLAB(R) is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with THE Robotic Grasping Toolbox for use with MATLAB(R).  If not, see <http://www.gnu.org/licenses/>.
+
+classdef LimbDH < Limb & SerialLink
+
+    properties (Access = private)
+        pJointCompliance;
+    end
+    properties (SetAccess = private)
+        activeJoints;
+    end
+    properties (Dependent)
+        jointCompliance;
+    end
+
+    methods
+        function obj = LimbDH(varargin)
+            %LimbDH Create a LimbDH object
+            %
+            % SYNOPSIS
+            %
+            % OPTIONS
+            %
+            % NOTE:
+            %  - LimbDH is a reference object, a subclass of Handle object.
+            %  - LimbDH is also a subclass of SerialLink object.
+            %  - LimbDH objects can be used in vectors and arrays
+            %
+            % See also Link, SerialLink, SerialLink.plot.
+
+            % extract the properties of LimbDH class, discard inherited props
+            nLimbProps_ = 2;
+            strLimbProps_ = properties('LimbDH');
+            strLimbProps_ = strLimbProps_(1:nLimbProps_);
+
+            % select construction-specific options
+            [oplLimb, oplSerialLink] = srv_get_subclass_construction_options(strLimbProps_, nLimbProps_, varargin{:});
+
+            % supe\\\\\\r()
+            obj = obj@SerialLink(oplSerialLink{:});
+
+            % assign the properties
+            % default props:
+            %   servo Compliance (Nmm/degree)
+            %   all joints are active
+            idxActiveJoints = (1:obj.n);
+            %
+            % if props providen
+            if ~isempty(oplLimb{1}),
+                % activeJoints,
+                idxActiveJoints = (unique(real(oplLimb{2}(:))))';
+                if idxActiveJoints(end) > obj.n,
+                    error('GRASP:classProps:NonConsistentValue', ...
+                        'wrong value specified for active joints, at least a value is greater than %d', ...
+                            obj.n);
+                end
+            end
+            %
+            obj.activeJoints = idxActiveJoints;
+            servoComp = 100*ones(1,length(idxActiveJoints));
+            if ~isempty(oplLimb{3}),
+                % Compliance,
+                servoComp = real(oplLimb{4}(:))';
+            end
+            obj.jointCompliance = servoComp;
+        end
+
+        function obj2 = copy(obj)
+            %LimbDH.copy Clone a LimbDH object
+            %
+            % aLimb2 = aLimb.copy() is a deepcopy of the object aLimb.
+            obj2 = LimbDH(obj);
+        end
+
+        function display(obj)
+            %LimbDH.display Display parameters
+            %
+            % aLimb.display() displays the LimbDH parameters in human-readable form.
+            %
+            % NOTE:
+            % - this method is invoked implicitly at the command line when the result 
+            %   of an expression is a LimbDH object and the command has no trailing
+            %   semicolon.
+            %
+            % See also SerialLink.display, LimbDH.char.
+            disp(' ');
+            disp([inputname(1),' = '])
+            %disp(' ');
+            for i = 1:length(obj),
+                disp(char(char(obj(i)), ' '));
+            end
+        end
+
+        function s = char(obj)
+            %LimbDH.char String representation of parameters
+            %
+            % S = aLimb.char() is a string representation of the LimbDH parameters.
+            s = char@SerialLink(obj);
+            s_1 = s(1:2,:);
+            s_2 = s(3:6+obj.n,1:end);
+            s_3 = s(end-4:end,:);
+            t =         '-------+---------+';
+            t = char(t, '       |  Csrv   |');
+            t = char(t, '-------+---------+');
+
+            % additional (limb-only) parameters
+            bActJoints = zeros(1,obj.n);
+            bActJoints(obj.activeJoints) = 1;
+            sActJoints = {'     ', '(act)'};
+            for i = 1:obj.n,
+                t = char(t, sprintf(' %s | %07.3f |', ...
+                        sActJoints{bActJoints(i) + 1}, ...
+                            obj.jointCompliance(i,i)));
+            end
+            t = char(t, '-------+---------+');
+
+            % params composition
+            latestCharInS_2 = find(s_2(end,:) == '+', 1, 'last');
+            s = char(s_1, [s_2(:,1:latestCharInS_2), t], s_3);
+        end
+
+        function servoComp = get.jointCompliance(obj)
+            servoComp = diag(obj.pJointCompliance);
+        end
+
+        function set.jointCompliance(obj, servoComp)
+            if ~isnumeric(servoComp),
+                error('GRASP:classProps:NonConsistentValue', ...
+                    'wrong value specified for ''jointCompliance'', expected a numeric vector');
+            end
+            nActiveJoints = length(obj.activeJoints);
+            if numel(servoComp) ~= nActiveJoints,
+                error('GRASP:classProps:NonConsistentValue', ...
+                        'wrong diag elements of servo Compliance, expected %d elements', ...
+                            nActiveJoints);
+            end
+            servoComp_ = zeros(1, obj.n);
+            servoComp_(obj.activeJoints) = servoComp;
+            obj.pJointCompliance = servoComp_;
+        end
+    end
+    
+end

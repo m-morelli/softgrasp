@@ -1,0 +1,194 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="http://www.petercorke.com/RVC/common/toolboxhelp.css">
+    <title>M-File Help: Quaternion</title>
+  </head>
+  <body>
+  <table border="0" cellspacing="0" width="100%">
+    <tr class="subheader">
+      <td class="headertitle">M-File Help: Quaternion</td>
+      <td class="subheader-left"><a href="matlab:open Quaternion">View code for Quaternion</a></td>
+    </tr>
+  </table>
+<h1>Quaternion</h1><p><span class="helptopic">Quaternion class</span></p>A quaternion is a compact method of representing a 3D rotation that has
+computational advantages including speed and numerical robustness.
+A quaternion has 2 parts, a scalar s, and a vector v and is typically
+written: q = s &amp;lt;vx, vy, vz&amp;gt;.
+
+A unit quaternion is one for which s^2+vx^2+vy^2+vz^2 = 1.  It can be
+considered as a rotation about a vector in space where
+q = cos (theta/2) &amp;lt; v sin(theta/2)&amp;gt; where v is a unit vector.
+
+<strong>q</strong> = <span style="color:red>Quaternion</span>(<strong>x</strong>) is a unit quaternion equivalent to <strong>x</strong> which can be any
+of:
+
+<ul>
+  <li>orthonormal rotation matrix.</li>
+  <li>homogeneous transformation matrix (rotation part only).</li>
+  <li>rotation angle and vector</li>
+</ul>
+<h2>Methods</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> inv</td> <td>return inverse of quaterion</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> norm</td> <td>return norm of quaternion</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> unit</td> <td>return unit quaternion</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> unitize</td> <td>unitize this quaternion</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> plot</td> <td>same options as trplot()</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> interp</td> <td>interpolation (slerp) between q and q2, 0<=s<=1</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> scale</td> <td>interpolation (slerp) between identity and q, 0<=s<=1</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> dot</td> <td>derivative of quaternion with angular velocity w</td></tr>
+</table>
+<h2>Arithmetic operators are overloaded</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> q+q2</td> <td>return elementwise sum of quaternions</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> q-q2</td> <td>return elementwise difference of quaternions</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> q*q2</td> <td>return quaternion product</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> q*v</td> <td>rotate vector by quaternion, v is 3x1</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> q/q2</td> <td>return q*q2.inv</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> q^n</td> <td>return q to power n (integer only)</td></tr>
+</table>
+<h2>Properties (read only)</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> s </td> <td>real part</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> v </td> <td>vector part</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> R </td> <td>3x3 rotation matrix</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> T </td> <td>4x4 homogeneous transform matrix</td></tr>
+</table>
+<h2>Notes</h2>
+<ul>
+  <li>Quaternion objects can be used in vectors and arrays</li>
+</ul>
+<h2>See also</h2>
+<p>
+<a href="matlab:doc trinterp">trinterp</a>, <a href="matlab:doc trplot">trplot</a></p>
+<hr>
+<a name="Quaternion"><h1>Quaternion.Quaternion</h1></a>
+<p><span class="helptopic">Constructor for quaternion objects</span></p><strong>q</strong> = <span style="color:red>Quaternion</span>() is the identitity quaternion 1&amp;lt;0,0,0&amp;gt; representing a null rotation.
+
+<strong>q</strong> = <span style="color:red>Quaternion</span>(<strong>q1</strong>) is a copy of the quaternion <strong>q1</strong>
+
+<strong>q</strong> = <span style="color:red>Quaternion</span>([S V1 V2 V3]) is a quaternion formed by specifying directly its 4 elements
+
+<strong>q</strong> = <span style="color:red>Quaternion</span>(<strong>s</strong>) is a quaternion formed from the scalar <strong>s</strong> and zero vector part: <strong>s</strong>&amp;lt;0,0,0&amp;gt;
+
+<strong>q</strong> = <span style="color:red>Quaternion</span>(<strong>v</strong>) is a pure quaternion with the specified vector part: 0&amp;lt;<strong>v</strong>&amp;gt;
+
+<strong>q</strong> = <span style="color:red>Quaternion</span>(<strong>th</strong>, <strong>v</strong>) is a unit quaternion corresponding to rotation of <strong>th</strong> about the vector <strong>v</strong>.
+
+<strong>q</strong> = <span style="color:red>Quaternion</span>(<strong>R</strong>) is a unit quaternion corresponding to the orthonormal rotation matrix <strong>R</strong>.
+
+<strong>q</strong> = <span style="color:red>Quaternion</span>(<strong>T</strong>) is a unit quaternion equivalent to the rotational
+part of the homogeneous transform <strong>T</strong>.
+
+<hr>
+<a name="char"><h1>Quaternion.char</h1></a>
+<p><span class="helptopic">Create string representation of quaternion object</span></p><strong>s</strong> = Q.<span style="color:red>char</span>() is a compact string representation of the quaternion's value
+as a 4-tuple.
+
+<hr>
+<a name="display"><h1>Quaternion.display</h1></a>
+<p><span class="helptopic">Display the value of a quaternion object</span></p>Q.<span style="color:red>display</span>() displays a compact string representation of the quaternion's value
+as a 4-tuple.
+
+<h2>Notes</h2>
+<ul>
+  <li>this method is invoked implicitly at the command line when the result
+of an expression is a Quaternion object and the command has no trailing
+semicolon.</li>
+</ul>
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Quaternion.char">Quaternion.char</a></p>
+<hr>
+<a name="double"><h1>Quaternion.double</h1></a>
+<p><span class="helptopic">Convert a quaternion object to a 4-element vector</span></p><strong>v</strong> = Q.<span style="color:red>double</span>() is a 4-vector comprising the quaternion
+elements [s vx vy vz].
+
+<hr>
+<a name="get.R"><h1>Quaternion.get.R</h1></a>
+<p><span class="helptopic">Return equivalent orthonormal rotation matrix</span></p>R = Q.R is the equivalent 3x3 orthonormal rotation matrix.
+
+<hr>
+<a name="get.T"><h1>Quaternion.get.T</h1></a>
+<p><span class="helptopic">Return equivalent homogeneous transformationmatrix</span></p>T = Q.T is the equivalent 4x4 homogeneous transformation matrix.
+
+<hr>
+<a name="interp"><h1>Quaternion.interp</h1></a>
+<p><span class="helptopic">Interpolate rotations expressed by quaternion objects</span></p><strong>qi</strong> = Q1.<span style="color:red>interp</span>(<strong>q2</strong>, <strong>R</strong>) is a unit-quaternion that interpolates between Q1 for <strong>R</strong>=0
+to <strong>q2</strong> for <strong>R</strong>=1. This is a spherical linear interpolation (slerp) that can be
+interpretted as interpolation along a great circle arc on a sphere.
+
+If <strong>R</strong> is a vector <strong>qi</strong> is a vector of quaternions, each element
+corresponding to sequential elements of <strong>R</strong>.
+
+Notes:
+
+<ul>
+  <li>the value of r is clipped to the interval 0 to 1</li>
+</ul>
+<h2>See also</h2>
+<p>
+<a href="matlab:doc ctraj">ctraj</a>, <a href="matlab:doc Quaternion.scale">Quaternion.scale</a></p>
+<hr>
+<a name="inv"><h1>Quaternion.inv</h1></a>
+<p><span class="helptopic">Invert a unit-quaternion</span></p><strong>qi</strong> = Q.<span style="color:red>inv</span>() is a quaternion object representing the inverse of Q.
+
+<hr>
+<a name="minus"><h1>Quaternion.minus</h1></a>
+<p><span class="helptopic">Subtract two quaternion objects</span></p>Q1-Q2 is the element-wise difference of quaternion elements.
+
+<hr>
+<a name="mpower"><h1>Quaternion.mpower</h1></a>
+<p><span class="helptopic">Raise quaternion to integer power</span></p>Q^N is quaternion Q raised to the integer power N, and computed by repeated multiplication.
+
+<hr>
+<a name="mrdivide"><h1>Quaternion.mrdivide</h1></a>
+<p><span class="helptopic">Compute quaternion quotient.</span></p><table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> Q1/Q2</td> <td>is a quaternion formed by Hamilton product of Q1 and inv(Q2)</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> Q/S</td> <td>is the element-wise division of quaternion elements by by the scalar S</td></tr>
+</table>
+<hr>
+<a name="mtimes"><h1>Quaternion.mtimes</h1></a>
+<p><span class="helptopic">Multiply a quaternion object</span></p><table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> Q1*Q2</td> <td>is a quaternion formed by Hamilton product of two quaternions.</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> Q*V</td> <td>is the vector V rotated by the quaternion Q</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> Q*S</td> <td>is the element-wise multiplication of quaternion elements by by the scalar S</td></tr>
+</table>
+<hr>
+<a name="norm"><h1>Quaternion.norm</h1></a>
+<p><span class="helptopic">Compute the norm of a quaternion</span></p><strong>qn</strong> = <strong>q</strong>.<span style="color:red>norm</span>(<strong>q</strong>) is the scalar <span style="color:red>norm</span> or magnitude of the quaternion <strong>q</strong>.
+
+<hr>
+<a name="plot"><h1>Quaternion.plot</h1></a>
+<p><span class="helptopic">Plot a quaternion object</span></p>Q.<span style="color:red>plot</span>(<strong>options</strong>) plots the quaternion as a rotated coordinate frame.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc trplot">trplot</a></p>
+<hr>
+<a name="plus"><h1>Quaternion.plus</h1></a>
+<p><span class="helptopic">Add two quaternion objects</span></p>Q1+Q2 is the element-wise sum of quaternion elements.
+
+<hr>
+<a name="scale"><h1>Quaternion.scale</h1></a>
+<p><span class="helptopic">Interpolate rotations expressed by quaternion objects</span></p><strong>qi</strong> = Q.<span style="color:red>scale</span>(<strong>R</strong>) is a unit-quaternion that interpolates between identity for <strong>R</strong>=0
+to Q for <strong>R</strong>=1.  This is a spherical linear interpolation (slerp) that can
+be interpretted as interpolation along a great circle arc on a sphere.
+
+If <strong>R</strong> is a vector <strong>qi</strong> is a cell array of quaternions, each element
+corresponding to sequential elements of <strong>R</strong>.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc ctraj">ctraj</a>, <a href="matlab:doc Quaternion.interp">Quaternion.interp</a></p>
+<hr>
+<a name="unit"><h1>Quaternion.unit</h1></a>
+<p><span class="helptopic">Unitize a quaternion</span></p><strong>qu</strong> = Q.<span style="color:red>unit</span>() is a quaternion which is a unitized version of  Q
+
+<hr>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr class="subheader" valign="top"><td>&nbsp;</td></tr></table>
+<p class="copy">&copy; 1990-2011 Peter Corke.</p>
+</body></html>

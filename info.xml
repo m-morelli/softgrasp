@@ -1,0 +1,40 @@
+<productinfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="optional">
+    <?xml-stylesheet type="text/xsl"href="optional"?>
+    
+    <!-- Release element is not used, but provides documentation -->
+    <matlabrelease>2009b</matlabrelease>
+    <!-- (Required) The name element appears in the Contents pane -->
+    <name>SoftGrasp</name>
+    <!-- (Required) The type elementidentifies your package; pick one: -->
+    <!-- matlab, toolbox, simulink, blockset, links_targets  -->
+    <type>toolbox</type>
+    <!-- The icon element is used in the Start button -->
+    <icon>$toolbox/matlab/icons/matlabicon.gif</icon>
+    <!-- (Required) The help_location is relative path to help (HTML) file folder -->
+    <help_location>html</help_location>
+    <!-- Optional list of entries to display on Start Menu -->
+    <!-- Callback items are function calls or commands for toolbox -->
+    <!-- You must Refresh the Start button to see your entries -->
+    <!-- Remove this entire list if you do not want a Start button entry -->
+    <list>
+        <listitem>
+            <label>Help</label>
+            <callback>doc grasp/</callback>
+            <icon>$toolbox/matlab/icons/book_mat.gif</icon>
+        </listitem>
+
+        <listitem>
+            <label>Demos</label>
+            <callback>demo toolbox grasp/</callback>
+            <icon>$toolbox/matlab/icons/demoicon.gif</icon>
+        </listitem>
+
+        <listitem>
+            <label>Product Page (Web)</label>
+            <callback>web http://rtss.sf.net/ -browser;</callback>
+            <icon>$toolbox/matlab/icons/webicon.gif</icon>
+        </listitem>
+
+    </list>
+</productinfo>

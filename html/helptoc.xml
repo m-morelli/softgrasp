@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding="utf-8"?>
+<toc version="2.0">
+<!-- First tocitem specifies top level in Help browser Contents pane -->
+<!-- This can be a roadmap page, as shown below, or a content page -->
+
+    <tocitem target="softgrasp_product_page.html">SoftGrasp Toolbox
+        <!-- Nest tocitems to create hierarchical entries in  Contents-->
+        <!-- To include icons, use the following syntax for tocitems: -->
+        <!-- <tocitem target="foo.html" image="HelpIcon.NAME"> -->
+        <!-- Title-of-Section </tocitem> -->
+        <!-- where NAME is one of the following (use capital letters): -->
+        <!-- FUNCTION, USER_GUIDE, EXAMPLES, BLOCK, GETTING_STARTED, -->
+        <!-- DEMOS, RELEASE_NOTES --> 
+        <!-- Icon images used for these entries are also stored in -->
+        <!-- matlabroot/toolbox/matlab/icons -->
+        <!-- A Getting Started Guide usually comes first -->
+        <tocitem target="softgrasp_getting_started.html" image="$toolbox/matlab/icons/help_gs.png"> Getting Started
+            <tocitem target="softgrasp_gs_overview.html">Product Overview
+            	<tocitem target="softgrasp_gs_overview.html#1">What is SoftGrasp?</tocitem>
+                <tocitem target="softgrasp_gs_overview.html#4">Related Software</tocitem>
+                <tocitem target="softgrasp_gs_overview.html#5">SoftGrasp's Key Features</tocitem>
+                <tocitem target="softgrasp_gs_overview.html#6">Acknowledgments</tocitem>
+            </tocitem>
+            <tocitem target="./workflow/softgrasp_gs_workflow.html">SoftGrasp Concepts and Workflow
+            </tocitem>
+            <tocitem target="softgrasp_gs_fgm_analysis.html">Fundamentals of Grasp Analysis
+                <tocitem target="./fgm_analysis/ijrr1/softgrasp_gs_ijrr1.html">Precision Grasp-A Circular Object Grasped by a Two-Fingered Robotic Hand
+                </tocitem>
+                <tocitem target="softgrasp_gs_ijrr2.html">Power Grasp-A Square Object Grasped by a Two-Fingered Spider-Like Hand
+                </tocitem>
+            </tocitem>
+            <tocitem target="softgrasp_gs_classifications.html">Basic Grasp Classifications
+            </tocitem>
+            <tocitem target="softgrasp_gs_closed_chains.html">Modeling and Analysis of Closed–Chain Mechanisms with Unactuated Joints
+            </tocitem>
+            <tocitem target="softgrasp_gs_manip_syn.html">Manipulability Analysis of Hands with Synergies
+            </tocitem>
+            <tocitem target="softgrasp_gs_gfo.html">Grasp Force Optimization
+            </tocitem>
+        </tocitem>
+
+        <!-- User Guide comes next -->
+        <tocitem target="softgrasp_users_guide.html" image="$toolbox/matlab/icons/help_ug.png"> User's Guide
+            <tocitem target="softgrasp_ug_software_arch.html">SoftGrasp Architecture</tocitem>
+            <tocitem target="softgrasp_ug_software_handle.html">MATLAB(R)'s Handle Semantics</tocitem>
+            <tocitem target="softgrasp_ug_software_hands_objects.html">Hands and Objects</tocitem>
+            <tocitem target="softgrasp_ug_software_gloves_covers.html">Gloves and Covers</tocitem>
+            <tocitem target="softgrasp_ug_software_contact_structure.html">Creating Contact Models with the Class ContactStructure</tocitem>
+            <tocitem target="softgrasp_ug_software_openrave.html">Using the Contact Information Provided by an External Planner</tocitem>
+            <tocitem target="softgrasp_ug_software_solvers.html">Grasp Solvers</tocitem>
+            <tocitem target="softgrasp_ug_software_grout.html">Examining Results of Grasp Analysis and Optimization</tocitem>
+            <tocitem target="softgrasp_ug_software_gropt.html">Changing Default Model Properties and Solver Options</tocitem>
+            <tocitem target="softgrasp_ug_software_plot.html">Plot Options and Procedures</tocitem>
+        </tocitem>
+
+        <!-- Function reference next -->
+        <!-- The first file lists all of the functions, categorizing them -->
+        <tocitem target="softgrasp_fx_categories.html" image="$toolbox/matlab/icons/help_fx.png"> Functions</tocitem>
+
+        <tocitem target="softgrasp_ex_index.html" image="$toolbox/matlab/icons/help_ex.png">Examples</tocitem> 
+
+        <tocreference target="demos.xml"></tocreference>
+
+        <tocitem target="softgrasp_rn_index.html" image="$toolbox/matlab/icons/help_rn.png">Release Notes</tocitem>
+    </tocitem>
+</toc>

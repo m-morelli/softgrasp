@@ -1,0 +1,234 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="http://www.petercorke.com/RVC/common/toolboxhelp.css">
+    <title>M-File Help: PGraph</title>
+  </head>
+  <body>
+  <table border="0" cellspacing="0" width="100%">
+    <tr class="subheader">
+      <td class="headertitle">M-File Help: PGraph</td>
+      <td class="subheader-left"><a href="matlab:open PGraph">View code for PGraph</a></td>
+    </tr>
+  </table>
+<h1>PGraph</h1><p><span class="helptopic">Simple graph class</span></p><table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> g = PGraph()</td> <td>create a 2D, planar, undirected graph</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> g = PGraph(n)</td> <td>create an n-d, undirected graph</td></tr>
+</table>
+<h2>Graphs</h2>
+<ul>
+  <li>are undirected</li>
+  <li>are symmetric cost edges (A to B is same cost as B to A)</li>
+  <li>are embedded in coordinate system</li>
+  <li>have no loops (edges from A to A)</li>
+  <li>vertices are represented by integer ids, vid</li>
+  <li>edges are represented by integer ids, eid</li>
+</ul>
+Graph connectivity is maintained by a labeling algorithm and this
+is updated every time an edge is added.
+
+<h2>Methods</h2>
+<h2>Constructing the graph</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> g.add_node(coord)</td> <td>add vertex, return vid</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1">g.add_node(coord,  v)</td> <td>add vertex and edge to v, return vid</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1">g.add_edge(v1,  v2)</td> <td>add edge from v1 to v2, return eid</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> g.clear()</td> <td>remove all nodes and edges from the graph</td></tr>
+</table>
+<h2>Information from graph</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> g.edges(e)</td> <td>return vid for edge</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> g.cost(e)</td> <td>return cost for edge list</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> g.coord(v)</td> <td>return coordinate of node v</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> g.neighbours(v)</td> <td>return vid for edge</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> g.component(v)</td> <td>return component id for vertex</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> g.connectivity()</td> <td>return number of edges for all nodes</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> g.plot()</td> <td>set goal vertex for path planning</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> g.pick()</td> <td>return vertex id closest to picked point</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> char(g)</td> <td>display summary info about the graph</td></tr>
+</table>
+<h2>Planning paths through the graph</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> g.goal(v)</td> <td>set goal vertex, and plan paths</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> g.next(v)</td> <td>return d of neighbour of v closest to goal</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> g.path(v)</td> <td>return list of nodes from v to goal</td></tr>
+</table>
+<h2>Graph and world points</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1">g.distance(v1,  v2)</td> <td>distance between v1 and v2 as the crow flies</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> g.closest(coord)</td> <td>return vertex closest to coord</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> g.distances(coord)</td> <td>return sorted distances from coord and vertices</td></tr>
+</table>
+To change the distance metric create a subclass of <span style="color:red>PGraph</span> and override the
+method distance_metric().
+
+<h2>Object properties (read/write)</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> g.n</td> <td>number of nodes</td></tr>
+</table>
+<hr>
+<a name="PGraph"><h1>PGraph.PGraph</h1></a>
+<p><span class="helptopic">Graph class constructor</span></p><strong>g</strong> = <span style="color:red>PGraph</span>(<strong>d</strong>, <strong>options</strong>) returns a graph object embedded
+in <strong>d</strong> dimensions.
+
+<h2>Options</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1">'distance',  M</td> <td>Use the distance metric M for path planning</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> 'verbose'</td> <td>Specify verbose operation</td></tr>
+</table>
+<h2>Note</h2>
+<ul>
+  <li>The distance metric is either 'Euclidean' or 'SE2' which is the sum of
+the squares of the difference in position and angle modulo 2pi.</li>
+</ul>
+<hr>
+<a name="add_edge"><h1>PGraph.add_edge</h1></a>
+<p><span class="helptopic">Add an edge to the graph</span></p><strong>E</strong> = G.<span style="color:red>add_edge</span>(<strong>v1</strong>, <strong>v2</strong>) add an edge between nodes with id <strong>v1</strong> and <strong>v2</strong>, and
+returns the edge id <strong>E</strong>.
+
+<strong>E</strong> = G.<span style="color:red>add_edge</span>(<strong>v1</strong>, <strong>v2</strong>, <strong>C</strong>) add an edge between nodes with id <strong>v1</strong> and <strong>v2</strong> with
+cost <strong>C</strong>.
+
+<hr>
+<a name="add_node"><h1>PGraph.add_node</h1></a>
+<p><span class="helptopic">Add a node to the graph</span></p><strong>v</strong> = G.<span style="color:red>add_node</span>(<strong>x</strong>) adds a node with coordinate <strong>x</strong>, where <strong>x</strong> is Dx1, and
+returns the node id <strong>v</strong>.
+
+<strong>v</strong> = G.<span style="color:red>add_node</span>(<strong>x</strong>, <strong>v</strong>) adds a node with coordinate <strong>x</strong> and connected to
+node <strong>v</strong> by an edge.
+
+<strong>v</strong> = G.<span style="color:red>add_node</span>(<strong>x</strong>, <strong>v</strong>, <strong>C</strong>) adds a node with coordinate <strong>x</strong> and connected to
+node <strong>v</strong> by an edge with cost <strong>C</strong>.
+
+<hr>
+<a name="char"><h1>PGraph.char</h1></a>
+<p><span class="helptopic">Convert graph to string</span></p><strong>s</strong> = G.<span style="color:red>char</span>() returns a compact human readable representation of the
+state of the graph including the number of vertices, edges and components.
+
+<hr>
+<a name="clear"><h1>PGraph.clear</h1></a>
+<p><span class="helptopic">Clear the graph</span></p>G.<span style="color:red>CLEAR</span>() removes all nodes and edges.
+
+<hr>
+<a name="closest"><h1>PGraph.closest</h1></a>
+<p><span class="helptopic">Find closest node</span></p><strong>v</strong> = G.<span style="color:red>closest</span>(<strong>x</strong>) return id of node geometrically <span style="color:red>closest</span> to coordinate <strong>x</strong>.
+
+[<strong>v</strong>,<strong>d</strong>] = G.<span style="color:red>CLOSEST</span>(<strong>x</strong>) return id of node geometrically closest to coordinate <strong>x</strong>, and
+the distance <strong>d</strong>.
+
+<hr>
+<a name="connectivity"><h1>PGraph.connectivity</h1></a>
+<p><span class="helptopic">Graph connectivity</span></p><strong>C</strong> = G.<span style="color:red>connectivity</span>() returns the total number of edges in the graph.
+
+<hr>
+<a name="coord"><h1>PGraph.coord</h1></a>
+<p><span class="helptopic">Coordinate of node</span></p><strong>x</strong> = G.<span style="color:red>coord</span>(<strong>v</strong>) return coordinate vector, Dx1, of node id <strong>v</strong>.
+
+<hr>
+<a name="cost"><h1>PGraph.cost</h1></a>
+<p><span class="helptopic">Cost of edge</span></p><strong>C</strong> = G.<span style="color:red>cost</span>(<strong>E</strong>) return <span style="color:red>cost</span> of edge id <strong>E</strong>.
+
+<hr>
+<a name="display"><h1>PGraph.display</h1></a>
+<p><span class="helptopic">Display state of the graph</span></p>G.<span style="color:red>display</span>() displays a compact human readable representation of the
+state of the graph including the number of vertices, edges and components.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc PGraph.char">PGraph.char</a></p>
+<hr>
+<a name="distance"><h1>PGraph.distance</h1></a>
+<p><span class="helptopic">Distance between nodes</span></p><strong>d</strong> = G.<span style="color:red>distance</span>(<strong>v1</strong>, <strong>v2</strong>) return the geometric <span style="color:red>distance</span> between
+the nodes with id <strong>v1</strong> and <strong>v2</strong>.
+
+<hr>
+<a name="distances"><h1>PGraph.distances</h1></a>
+<p><span class="helptopic">Distance to all nodes</span></p><strong>d</strong> = G.<span style="color:red>distances</span>(<strong>v</strong>) returns vector of geometric distance from node
+id <strong>v</strong> to every other node (including <strong>v</strong>) sorted into increasing order
+by <strong>d</strong>.
+
+[<strong>d</strong>,<strong>w</strong>] = G.<span style="color:red>distances</span>(<strong>v</strong>) returns vector of geometric distance from node
+id <strong>v</strong> to every other node (including <strong>v</strong>) sorted into increasing order
+by <strong>d</strong> where elements of <strong>w</strong> are the corresponding node id.
+
+<hr>
+<a name="edges"><h1>PGraph.edges</h1></a>
+<p><span class="helptopic">Find edges given vertex</span></p><strong>E</strong> = G.<span style="color:red>edges</span>(<strong>v</strong>) return the id of all <span style="color:red>edges</span> from node id <strong>v</strong>.
+
+<hr>
+<a name="goal"><h1>PGraph.goal</h1></a>
+<p><span class="helptopic">Set goal node</span></p>G.<span style="color:red>goal</span>(<strong>vg</strong>) for least-cost path through graph set the <span style="color:red>goal</span> node.  The cost
+of reaching every node in the graph connected to <strong>vg</strong> is computed.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc PGraph.path">PGraph.path</a></p>
+cost is total distance from <span style="color:red>goal</span>
+
+<hr>
+<a name="neighbours"><h1>PGraph.neighbours</h1></a>
+<p><span class="helptopic">Neighbours of a node</span></p><strong>n</strong> = G.<span style="color:red>neighbours</span>(<strong>v</strong>) return a vector of ids for all nodes which are
+directly connected <span style="color:red>neighbours</span> of node id <strong>v</strong>.
+
+[<strong>n</strong>,<strong>C</strong>] = G.<span style="color:red>neighbours</span>(<strong>v</strong>) return a vector <strong>n</strong> of ids for all nodes which are
+directly connected <span style="color:red>neighbours</span> of node id <strong>v</strong>.  The elements of <strong>C</strong> are the
+edge costs of the paths to the corresponding node ids in <strong>n</strong>.
+
+<hr>
+<a name="next"><h1>PGraph.next</h1></a>
+<p><span class="helptopic">Find next node toward goal</span></p><strong>v</strong> = G.<span style="color:red>next</span>(<strong>vs</strong>) return the id of a node connected to node id <strong>vs</strong>
+that is closer to the goal.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc PGraph.goal">PGraph.goal</a>, <a href="matlab:doc PGraph.path">PGraph.path</a></p>
+<hr>
+<a name="path"><h1>PGraph.path</h1></a>
+<p><span class="helptopic">Find path to goal node</span></p><strong>p</strong> = G.<span style="color:red>path</span>(<strong>vs</strong>) return a vector of node ids that form a <span style="color:red>path</span> from
+the starting node <strong>vs</strong> to the previously specified goal.  The <span style="color:red>path</span>
+includes the start and goal node id.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc PGraph.goal">PGraph.goal</a></p>
+<hr>
+<a name="pick"><h1>PGraph.pick</h1></a>
+<p><span class="helptopic">Graphically select a node</span></p><strong>v</strong> = G.<span style="color:red>pick</span>() returns the id of the node closest to the point clicked
+by user on a plot of the graph.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc PGraph.plot">PGraph.plot</a></p>
+<hr>
+<a name="plot"><h1>PGraph.plot</h1></a>
+<p><span class="helptopic">Plot the graph</span></p>G.<span style="color:red>plot</span>(<strong>opt</strong>) <span style="color:red>plot</span> the graph in the current figure.  Nodes
+are shown as colored circles.
+
+<h2>Options</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> 'labels'</td> <td>Display node id (default false)</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> 'edges'</td> <td>Display edges (default true)</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> 'edgelabels'</td> <td>Display edge id (default false)</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1">'MarkerSize', S</td> <td>Size of node circle</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1">'MarkerFaceColor', C</td> <td>Node circle color</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1">'MarkerEdgeColor', C</td> <td>Node circle edge color</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> 'componentcolor'</td> <td>Node color is a function of graph component</td></tr>
+</table>
+<hr>
+<a name="showComponent"><h1>PGraph.showComponent</h1></a>
+<p><span class="helptopic">t</span></p>G.<span style="color:red>showcomponent</span>(<strong>C</strong>) plots the nodes that belong to graph component <strong>C</strong>.
+
+<hr>
+<a name="showVertex"><h1>PGraph.showVertex</h1></a>
+<p><span class="helptopic">Highlight a vertex</span></p>G.<span style="color:red>showVertex</span>(<strong>v</strong>) highlights the vertex <strong>v</strong> with a yellow marker.
+
+<hr>
+<a name="vertices"><h1>PGraph.vertices</h1></a>
+<p><span class="helptopic">Find vertices given edge</span></p><strong>v</strong> = G.<span style="color:red>vertices</span>(<strong>E</strong>) return the id of the nodes that define edge <strong>E</strong>.
+
+<hr>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr class="subheader" valign="top"><td>&nbsp;</td></tr></table>
+<p class="copy">&copy; 1990-2011 Peter Corke.</p>
+</body></html>

@@ -1,0 +1,146 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="http://www.petercorke.com/RVC/common/toolboxhelp.css">
+    <title>M-File Help: RangeBearingSensor</title>
+  </head>
+  <body>
+  <table border="0" cellspacing="0" width="100%">
+    <tr class="subheader">
+      <td class="headertitle">M-File Help: RangeBearingSensor</td>
+      <td class="subheader-left"><a href="matlab:open RangeBearingSensor">View code for RangeBearingSensor</a></td>
+    </tr>
+  </table>
+<h1>RangeBearingSensor</h1><p><span class="helptopic">Range and bearing sensor class</span></p>A concrete subclass of Sensor that implements a range and bearing angle
+sensor that provides robot-centric measurements of the world. To enable
+this it has references to a map of the world (Map object) and a robot
+moving through the world (Vehicle object).
+
+<h2>Methods</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> reading</td> <td>return a random range/bearing observation</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> h </td> <td>return the observation for vehicle state xv and feature xf</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> Hx</td> <td>return a Jacobian matrix dh/dxv</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> Hxf</td> <td>return a Jacobian matrix dh/dxf</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> Hw</td> <td>return a Jacobian matrix dh/dw</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> g </td> <td>return feature positin given vehicle pose and observation</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> Gx</td> <td>return a Jacobian matrix dg/dxv</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> Gz</td> <td>return a Jacobian matrix dg/dz</td></tr>
+</table>
+<h2>Properties (read/write)</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> R </td> <td>measurement covariance matrix</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> interval</td> <td>valid measurements returned every interval'th call to reading()</td></tr>
+</table>
+<h2>Reference</h2>
+Robotics, Vision &amp; Control,
+Peter Corke,
+Springer 2011
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Sensor">Sensor</a>, <a href="matlab:doc Vehicle">Vehicle</a>, <a href="matlab:doc Map">Map</a>, <a href="matlab:doc EKF">EKF</a></p>
+<hr>
+<a name="Gx"><h1>RangeBearingSensor.Gx</h1></a>
+<p><span class="helptopic">Jacobian dg/dx</span></p><strong>J</strong> = S.<span style="color:red>Gx</span>(<strong>xv</strong>, <strong>z</strong>) returns the Jacobian dg/dxv at the vehicle state <strong>xv</strong>, for
+measurement <strong>z</strong>.  <strong>J</strong> is 2x3.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc RangeBearingSensor.g">RangeBearingSensor.g</a></p>
+<hr>
+<a name="Gz"><h1>RangeBearingSensor.Gz</h1></a>
+<p><span class="helptopic">Jacobian dg/dz</span></p><strong>J</strong> = S.<span style="color:red>Gz</span>(<strong>xv</strong>, <strong>z</strong>) returns the Jacobian dg/dz at the vehicle state <strong>xv</strong>, for
+measurement <strong>z</strong>.  <strong>J</strong> is 2x2.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc RangeBearingSensor.g">RangeBearingSensor.g</a></p>
+<hr>
+<a name="Hw"><h1>RangeBearingSensor.Hw</h1></a>
+<p><span class="helptopic">Jacobian dh/dv</span></p><strong>J</strong> = S.<span style="color:red>Hw</span>(<strong>xv</strong>, <strong>J</strong>) returns the Jacobian dh/dv at the vehicle
+state <strong>xv</strong>, for map feature <strong>J</strong>.  <strong>J</strong> is 2x2.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc RangeBearingSensor.h">RangeBearingSensor.h</a></p>
+<hr>
+<a name="Hx"><h1>RangeBearingSensor.Hx</h1></a>
+<p><span class="helptopic">Jacobian dh/dxv</span></p><strong>J</strong> = S.<span style="color:red>Hx</span>(<strong>xv</strong>, <strong>J</strong>) returns the Jacobian dh/dxv at the vehicle
+state <strong>xv</strong>, for map feature <strong>J</strong>.  <strong>J</strong> is 2x3.
+
+<strong>J</strong> = S.<span style="color:red>Hx</span>(<strong>xv</strong>, <strong>xf</strong>) as above but for a feature at coordinate <strong>xf</strong>.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc RangeBearingSensor.h">RangeBearingSensor.h</a></p>
+<hr>
+<a name="Hxf"><h1>RangeBearingSensor.Hxf</h1></a>
+<p><span class="helptopic">Jacobian dh/dxf</span></p><strong>J</strong> = S.<span style="color:red>Hxf</span>(<strong>xv</strong>, <strong>J</strong>) returns the Jacobian dh/dxv at the vehicle
+state <strong>xv</strong>, for map feature <strong>J</strong>.  <strong>J</strong> is 2x2.
+
+<strong>J</strong> = S.<span style="color:red>Hxf</span>(<strong>xv</strong>, <strong>xf</strong>) as above but for a feature at coordinate <strong>xf</strong>.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc RangeBearingSensor.h">RangeBearingSensor.h</a></p>
+<hr>
+<a name="RangeBearingSensor"><h1>RangeBearingSensor.RangeBearingSensor</h1></a>
+<p><span class="helptopic">Range and bearing sensor constructor</span></p><strong>s</strong> = <span style="color:red>RangeBearingSensor</span>(<strong>vehicle</strong>, <strong>map</strong>, <strong>R</strong>, <strong>options</strong>) is a range
+and bearing angle sensor mounted on the Vehicle object
+<strong>vehicle</strong> and observing the landmark map <strong>map</strong>.  The sensor
+covariance is <strong>R</strong> (2x2) representing range and bearing
+covariance.
+
+<h2>Options</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1">'range',  xmax</td> <td>maximum range of sensor</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1">'range',  [xmin xmax]</td> <td>minimum and maximum range of sensor</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1">'angle',  TH</td> <td>detection for angles betwen -TH to +TH</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1">'angle',  [THMIN THMAX]</td> <td>detection for angles betwen THMIN
+and THMAX</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1">'skip',  I</td> <td>return a valid reading on every I'th
+call</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1">'fail',  [TMIN TMAX]</td> <td>sensor simulates failure between
+timesteps TMIN and TMAX</td></tr>
+</table>
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Sensor">Sensor</a>, <a href="matlab:doc Vehicle">Vehicle</a>, <a href="matlab:doc Map">Map</a>, <a href="matlab:doc EKF">EKF</a></p>
+<hr>
+<a name="g"><h1>RangeBearingSensor.g</h1></a>
+<p><span class="helptopic">Compute landmark location</span></p><strong>p</strong> = S.<span style="color:red>g</span>(<strong>xv</strong>, <strong>z</strong>) is the world coordinate of feature given
+observation <strong>z</strong> and vehicle state <strong>xv</strong>.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc RangeBearingSensor.Gx">RangeBearingSensor.Gx</a>, <a href="matlab:doc RangeBearingSensor.Gz">RangeBearingSensor.Gz</a></p>
+<hr>
+<a name="h"><h1>RangeBearingSensor.h</h1></a>
+<p><span class="helptopic">Landmark range and bearing</span></p><strong>z</strong> = S.<span style="color:red>h</span>(<strong>xv</strong>, <strong>J</strong>) is range and bearing from vehicle at <strong>xv</strong> to map
+feature <strong>J</strong>.  <strong>z</strong> = [R,theta]
+
+<strong>z</strong> = S.<span style="color:red>h</span>(<strong>xv</strong>, <strong>xf</strong>) as above but compute range and bearing to a
+feature at coordinate <strong>xf</strong>.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc RangeBearingSensor.Hx">RangeBearingSensor.Hx</a>, <a href="matlab:doc RangeBearingSensor.Hw">RangeBearingSensor.Hw</a>, <a href="matlab:doc RangeBearingSensor.Hxf">RangeBearingSensor.Hxf</a></p>
+<hr>
+<a name="reading"><h1>RangeBearingSensor.reading</h1></a>
+<p><span class="helptopic">Landmark range and bearing</span></p>S.<span style="color:red>reading</span>() is a range/bearing observation [Z,J] where
+Z=[R,THETA] is range and bearing with additive Gaussian noise
+of covariance R. J is the index of the map feature that was
+observed. If no valid measurement, ie. no features within
+range, interval subsampling enabled or simulated failure the
+return is Z=[] and J=NaN.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc RangeBearingSensor.h">RangeBearingSensor.h</a></p>
+<hr>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr class="subheader" valign="top"><td>&nbsp;</td></tr></table>
+<p class="copy">&copy; 1990-2011 Peter Corke.</p>
+</body></html>

@@ -1,0 +1,109 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="http://www.petercorke.com/RVC/common/toolboxhelp.css">
+    <title>M-File Help: Dstar</title>
+  </head>
+  <body>
+  <table border="0" cellspacing="0" width="100%">
+    <tr class="subheader">
+      <td class="headertitle">M-File Help: Dstar</td>
+      <td class="subheader-left"><a href="matlab:open Dstar">View code for Dstar</a></td>
+    </tr>
+  </table>
+<h1>Dstar</h1><p><span class="helptopic">D* navigation class</span></p>A concrete subclass of Navigation that implements the distance transform
+navigation algorithm.  This provides minimum distance paths and
+facilitates incremental replanning.
+
+<h2>Methods</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> plan</td> <td>Compute the cost map given a goal and map</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> path</td> <td>Compute a path to the goal</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> visualize</td> <td>Display the obstacle map</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> display</td> <td>Print the parameters in human readable form</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> char</td> <td>Convert the parameters to a human readable string</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> modify_cost</td> <td>Modify the costmap</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> costmap_get</td> <td>Return the current costmap</td></tr>
+</table>
+<h2>Example</h2>
+<pre style="width: 90%%;" class="examples">
+load&nbsp;map1
+ds&nbsp;=&nbsp;Dstar(map);
+ds.plan(goal)
+ds.path(start)
+</pre>
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Navigation">Navigation</a>, <a href="matlab:doc DXform">DXform</a>, <a href="matlab:doc PRM">PRM</a></p>
+<hr>
+<a name="Dstar"><h1>Dstar.Dstar</h1></a>
+<p><span class="helptopic">D* navigation constructor</span></p><strong>ds</strong> = <span style="color:red>Dstar</span>(<strong>map</strong>) is a D* navigation object, and <strong>map</strong> is an
+occupancy grid, a representation of a planar world as a
+matrix whose elements are 0 (free space) or 1 (occupied)..
+The occupancy grid is coverted to a costmap with a unit cost
+for traversing a cell.
+
+<strong>ds</strong> = <span style="color:red>Dstar</span>(<strong>map</strong>, <strong>goal</strong>) as above but specify the goal point.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Navigation.Navigation">Navigation.Navigation</a></p>
+<hr>
+<a name="char"><h1>Dstar.char</h1></a>
+<p><span class="helptopic">Convert navigation object to string</span></p>DS.<span style="color:red>char</span>() is a string representing the state of the navigation
+object in human-readable form.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Dstar.display">Dstar.display</a></p>
+<hr>
+<a name="costmap_get"><h1>Dstar.costmap_get</h1></a>
+<p><span class="helptopic">Get the current costmap</span></p><strong>C</strong> = DS.<span style="color:red>costmap_get</span>() returns the current costmap.
+
+<hr>
+<a name="modify_cost"><h1>Dstar.modify_cost</h1></a>
+<p><span class="helptopic">Modify cost map</span></p>DS.<span style="color:red>modify_cost</span>(<strong>p</strong>, <strong>new</strong>) modifies the cost map at <strong>p</strong>=[X,Y] to
+have the value <strong>new</strong>.
+
+After one or more point costs have been updated the path
+should be replanned by calling DS.plan().
+
+<hr>
+<a name="plan"><h1>Dstar.plan</h1></a>
+<p><span class="helptopic">Plan path to goal</span></p>DS.<span style="color:red>plan</span>() updates DS with a costmap of distance to the
+goal from every non-obstacle point in the map.  The goal is
+as specified to the constructor.
+
+DS.<span style="color:red>plan</span>(<strong>goal</strong>) as above but uses the specified goal.
+
+<h2>Note</h2>
+<ul>
+  <li>if a path has already been planned, but the costmap was
+modified, then reinvoking this method will replan,
+incrementally updating the plan at lower cost than a full
+replan.</li>
+</ul>
+<hr>
+<a name="reset"><h1>Dstar.reset</h1></a>
+<p><span class="helptopic">Reset the planner</span></p>DS.<span style="color:red>reset</span>() resets the D* planner.  The next instantiation
+of DS.plan() will perform a global replan.
+
+<hr>
+<a name="visualize"><h1>Dstar.visualize</h1></a>
+<p><span class="helptopic">Visualize navigation environment</span></p>DS.<span style="color:red>visualize</span>() displays the occupancy grid and the goal distance
+in a new figure.  The goal distance is shown by intensity which
+increases with distance from the goal.  Obstacles are overlaid
+and shown in red.
+
+DS.<span style="color:red>visualize</span>(<strong>p</strong>) as above but also overlays the points <strong>p</strong> in the
+path points which is an Nx2 matrix.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Navigation.visualize">Navigation.visualize</a></p>
+<hr>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr class="subheader" valign="top"><td>&nbsp;</td></tr></table>
+<p class="copy">&copy; 1990-2011 Peter Corke.</p>
+</body></html>

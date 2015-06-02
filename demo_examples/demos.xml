@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Example demos.xml file for adding demos to the Help browser -->
+<!-- Your version of this file must be named "demos.xml" -->
+<demos>
+    <!-- Top-level Demo title in TOC -->
+    <name>Example Demos</name>
+    <type>toolbox</type>
+    <icon>HelpIcon.DEMOS</icon>
+    <description>These demos are given as examples to  
+    demonstrate how to add demo files for your own toolbox.
+    </description>
+    <website>
+    <a href="http://www.mathworks.com">Link to your Web site here</a>
+    </website>
+    <!-- First group of demos begins here -->
+    <demosection>
+        <label>Markup Demos</label>
+        <!-- First demo begins here -->
+        <demoitem>
+            <!-- How demo is described in the Contents pane -->
+            <label>Formatting Text for Publishing</label>
+            <!-- Type adds a system icon and this name next to demo item -->
+            <type>M-file</type>
+            <!-- File to display in the Viewing pane -->
+            <file>./html/formatted_block_demo.html</file>
+            <!-- Supply optinoal thumbnail for demo as a .png file -->
+            <!-- Name it <demo_name>.png -->
+            <!-- for this demo it is ./html/formatted_block_demo.png -->
+        </demoitem>
+    </demosection>
+    <!-- Second group of demos begins here -->
+    <demosection>
+       <label>Computational Demos</label>
+       <demoitem>
+           <!-- How demo is described in the Contents pane -->
+           <label>Sguare Waves from Fourier Series</label>
+            <!-- Do not add a <type> element if demo is executable -->
+            <!-- File to execute for "Run this demo" -->
+           <callback>fourier_demo</callback>
+           <!-- File to display in the Viewing pane -->
+           <file>./html/fourier_demo2.html</file>
+       </demoitem>
+    </demosection>
+    <!-- Third group of demos begins here -->
+    <demosection>
+        <label>Video Demos</label>
+        <demoitem>
+            <!-- Type adds a system icon and this name next to demo item -->
+            <type>video</type>
+            <!-- How demo is described in the Contents pane -->
+            <!-- This is an actual MATLAB Flash video demo -->
+            <!-- If Flash is installed, it runs in your system bowser -->
+            <label>Working in The Development Environment (4 min, 7 sec)</label>
+            <!-- Command or file to execute for "Run this demo" -->
+            <callback>playbackdemo('WorkingInTheDevelopmentEnvironment','toolbox/matlab/web/demos');</callback>
+        </demoitem>
+    </demosection>
+</demos>

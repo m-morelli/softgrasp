@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="http://www.petercorke.com/RVC/common/toolboxhelp.css">
+    <title>M-File Help: ctraj</title>
+  </head>
+  <body>
+  <table border="0" cellspacing="0" width="100%">
+    <tr class="subheader">
+      <td class="headertitle">M-File Help: ctraj</td>
+      <td class="subheader-left"><a href="matlab:open ctraj">View code for ctraj</a></td>
+    </tr>
+  </table>
+<h1>ctraj</h1><p><span class="helptopic">Cartesian trajectory between two points</span></p><strong>tc</strong> = <span style="color:red>ctraj</span>(<strong>T0</strong>, <strong>T1</strong>, <strong>n</strong>) is a Cartesian trajectory from pose <strong>T0</strong> to <strong>T1</strong>
+with <strong>n</strong> points that follow a trapezoidal velocity profile along the path.
+The Cartesian trajectory is a 4x4xN matrix, with the last subscript being the
+point index.
+
+<strong>tc</strong> = <span style="color:red>ctraj</span>(<strong>T0</strong>, <strong>T1</strong>, <strong>s</strong>) as above but the elements of <strong>s</strong> specify the fractional
+distance  along the path, and these values are in the range [0 1].
+The Cartesian trajectory is a 4x4xN matrix, with transform T(:,:,i)
+corresponding to <strong>s</strong>(i).
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc mstraj">mstraj</a>, <a href="matlab:doc trinterp">trinterp</a>, <a href="matlab:doc Quaternion.interp">Quaternion.interp</a>, <a href="matlab:doc transl">transl</a></p>
+<hr>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr class="subheader" valign="top"><td>&nbsp;</td></tr></table>
+<p class="copy">&copy; 1990-2011 Peter Corke.</p>
+</body></html>

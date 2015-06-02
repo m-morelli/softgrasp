@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="http://www.petercorke.com/RVC/common/toolboxhelp.css">
+    <title>M-File Help: mtraj</title>
+  </head>
+  <body>
+  <table border="0" cellspacing="0" width="100%">
+    <tr class="subheader">
+      <td class="headertitle">M-File Help: mtraj</td>
+      <td class="subheader-left"><a href="matlab:open mtraj">View code for mtraj</a></td>
+    </tr>
+  </table>
+<h1>mtraj</h1><p><span class="helptopic">Multi-axis trajectory between two points</span></p>[<strong>q</strong>,<strong>qd</strong>,<strong>qdd</strong>] = <span style="color:red>mtraj</span>(<strong>tfunc</strong>, <strong>q0</strong>, <strong>qf</strong>, <strong>n</strong>) is multi-axis trajectory <strong>q</strong> varying
+from state <strong>q0</strong> to <strong>qf</strong> according to the scalar trajectory function <strong>tfunc</strong> in
+<strong>n</strong> steps. Joint velocity and acceleration can be optionally returned as
+<strong>qd</strong> and <strong>qdd</strong> respectively. The trajectory <strong>q</strong>, <strong>qd</strong> and <strong>qdd</strong> are MxN matrices,
+with one row per time step, and one column per axis.
+
+The shape of the trajectory is given by the scalar trajectory function <strong>tfunc</strong>
+
+[<strong>s</strong>,<strong>sd</strong>,<strong>sdd</strong>] = <span style="color:red>tfunc</span>(<strong>s0</strong>, <strong>sf</strong>, <strong>n</strong>);
+
+and possible values of <span style="color:red>tfunc</span> include @lspb for a trapezoidal trajectory, or
+@tpoly for a polynomial trajectory.
+
+[<strong>q</strong>,<strong>qd</strong>,<strong>qdd</strong>] = <span style="color:red>mtraj</span>(<strong>tfunc</strong>, <strong>q0</strong>, <strong>qf</strong>, <strong>T</strong>) as above but specifies the trajectory
+length in terms of the length of the time vector <strong>T</strong>.
+
+<h2>Notes</h2>
+<ul>
+  <li>when TFUNC is @tpoly the result is similar to JTRAJ except that no
+initial velocities can be specified. JTRAJ is computationally a little
+more efficient.</li>
+</ul>
+<h2>See also</h2>
+<p>
+<a href="matlab:doc jtraj">jtraj</a>, <a href="matlab:doc mstraj">mstraj</a>, <a href="matlab:doc lspb">lspb</a>, <a href="matlab:doc tpoly">tpoly</a></p>
+<hr>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr class="subheader" valign="top"><td>&nbsp;</td></tr></table>
+<p class="copy">&copy; 1990-2011 Peter Corke.</p>
+</body></html>

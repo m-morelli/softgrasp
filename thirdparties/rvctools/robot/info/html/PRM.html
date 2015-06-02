@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="http://www.petercorke.com/RVC/common/toolboxhelp.css">
+    <title>M-File Help: PRM</title>
+  </head>
+  <body>
+  <table border="0" cellspacing="0" width="100%">
+    <tr class="subheader">
+      <td class="headertitle">M-File Help: PRM</td>
+      <td class="subheader-left"><a href="matlab:open PRM">View code for PRM</a></td>
+    </tr>
+  </table>
+<h1>PRM</h1><p><span class="helptopic">Probabilistic roadmap navigation class</span></p>A concrete subclass of Navigation that implements the probabilistic
+roadmap navigation algorithm.  This performs goal independent planning of
+roadmaps, and at the query stage finds paths between specific start and
+goal points.
+
+<h2>Methods</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> plan</td> <td>Compute the roadmap</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> path</td> <td>Compute a path to the goal</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> visualize</td> <td>Display the obstacle map</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> display</td> <td>Print the parameters in human readable form</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> char</td> <td>Convert the parameters to a human readable string</td></tr>
+</table>
+<h2>Example</h2>
+<pre style="width: 90%%;" class="examples">
+load&nbsp;map1
+prm&nbsp;=&nbsp;PRM(map);
+prm.plan()
+prm.path(start,&nbsp;goal)
+</pre>
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Navigation">Navigation</a>, <a href="matlab:doc DXform">DXform</a>, <a href="matlab:doc Dstar">Dstar</a>, <a href="matlab:doc PGraph">PGraph</a></p>
+<hr>
+<a name="PRM"><h1>PRM.PRM</h1></a>
+<p><span class="helptopic">Create a PRM navigation object constructor</span></p><strong>p</strong> = <span style="color:red>PRM</span>(<strong>map</strong>, <strong>options</strong>) is a probabilistic roadmap navigation
+object, and <strong>map</strong> is an occupancy grid, a representation of a
+planar world as a matrix whose elements are 0 (free space) or 1
+(occupied).
+
+<h2>Options</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1">'npoints',  n</td> <td>Number of sample points (default 100)</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1">'distthresh',  d</td> <td>Distance threshold, edges only connect vertices closer
+than d (default 0.3 max(size(occgrid)))</td></tr>
+</table>
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Navigation.Navigation">Navigation.Navigation</a></p>
+<hr>
+<a name="char"><h1>PRM.char</h1></a>
+<p><span class="helptopic">Convert navigation object to string</span></p>P.<span style="color:red>char</span>() is a string representing the state of the navigation
+object in human-readable form.
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc PRM.display">PRM.display</a></p>
+<hr>
+<a name="path"><h1>PRM.path</h1></a>
+<p><span class="helptopic">Find a path between two points</span></p>P.<span style="color:red>path</span>(<strong>start</strong>, <strong>goal</strong>) finds and displays a <span style="color:red>path</span> from <strong>start</strong> to <strong>goal</strong>
+which is overlaid on the occupancy grid.
+
+<strong>x</strong> = P.<span style="color:red>PATH</span>(<strong>start</strong>, <strong>goal</strong>) is the path from <strong>start</strong> to <strong>goal</strong> as a
+2xN matrix with columns representing points along the path.
+
+<hr>
+<a name="plan"><h1>PRM.plan</h1></a>
+<p><span class="helptopic">Create a probabilistic roadmap</span></p>P.<span style="color:red>plan</span>() creates the probabilistic roadmap by randomly
+sampling the free space in the map and building a graph with
+edges connecting close points.  The resulting graph is kept
+within the object.
+
+<hr>
+<a name="visualize"><h1>PRM.visualize</h1></a>
+<p><span class="helptopic">e</span></p>P.<span style="color:red>visualize</span>() displays the occupancy grid with an optional distance field
+
+Options:
+
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> 'goal'</td> <td>Superimpose the goal position if set</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> 'nooverlay'</td> <td>Don't overlay the PRM graph</td></tr>
+</table>
+<hr>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr class="subheader" valign="top"><td>&nbsp;</td></tr></table>
+<p class="copy">&copy; 1990-2011 Peter Corke.</p>
+</body></html>

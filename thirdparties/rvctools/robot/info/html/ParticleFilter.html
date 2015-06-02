@@ -1,0 +1,159 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="http://www.petercorke.com/RVC/common/toolboxhelp.css">
+    <title>M-File Help: ParticleFilter</title>
+  </head>
+  <body>
+  <table border="0" cellspacing="0" width="100%">
+    <tr class="subheader">
+      <td class="headertitle">M-File Help: ParticleFilter</td>
+      <td class="subheader-left"><a href="matlab:open ParticleFilter">View code for ParticleFilter</a></td>
+    </tr>
+  </table>
+<h1>ParticleFilter</h1><p><span class="helptopic">Particle filter class</span></p>Monte-carlo based localisation for estimating vehicle position based on
+odometry and observations of known landmarks.
+
+<h2>Methods</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> run</td> <td>run the particle filter</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> plot_xy</td> <td>display estimated vehicle path</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> plot_pdf</td> <td>display particle distribution</td></tr>
+</table>
+<h2>Properties</h2>
+<table class="list">
+  <tr><td style="white-space: nowrap;" class="col1"> robot</td> <td>reference to the robot object</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> sensor</td> <td>reference to the sensor object</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> history</td> <td>vector of structs that hold the detailed information from
+each time step</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> nparticles</td> <td>number of particles used</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> x </td> <td>particle states; nparticles x 3</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> weight</td> <td>particle weights; nparticles x 1</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> x_est</td> <td>mean of the particle population</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> std</td> <td>standard deviation of the particle population</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> Q </td> <td>covariance of noise added to state at each step</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> L </td> <td>covariance of likelihood model</td></tr>
+  <tr><td style="white-space: nowrap;" class="col1"> dim</td> <td>maximum xy dimension</td></tr>
+</table>
+<h2>Example</h2>
+Create a landmark map
+
+<pre style="width: 90%%;" class="examples">
+map&nbsp;=&nbsp;Map(20);
+</pre>
+and a vehicle with odometry covariance and a driver
+
+<pre style="width: 90%%;" class="examples">
+W&nbsp;=&nbsp;diag([0.1,&nbsp;1*pi/180].^2);
+veh&nbsp;=&nbsp;Vehicle(W);
+veh.add_driver(&nbsp;RandomPath(10)&nbsp;);
+</pre>
+and create a range bearing sensor
+
+<pre style="width: 90%%;" class="examples">
+R&nbsp;=&nbsp;diag([0.005,&nbsp;0.5*pi/180].^2);
+sensor&nbsp;=&nbsp;RangeBearingSensor(veh,&nbsp;map,&nbsp;R);
+</pre>
+For the particle filter we need to define two covariance matrices.  The
+first is is the covariance of the random noise added to the particle
+states at each iteration to represent uncertainty in configuration.
+
+<pre style="width: 90%%;" class="examples">
+Q&nbsp;=&nbsp;diag([0.1,&nbsp;0.1,&nbsp;1*pi/180]).^2;
+</pre>
+and the covariance of the likelihood function applied to innovation
+
+<pre style="width: 90%%;" class="examples">
+L&nbsp;=&nbsp;diag([0.1&nbsp;0.1]);
+</pre>
+Now construct the particle filter
+
+<pre style="width: 90%%;" class="examples">
+pf&nbsp;=&nbsp;ParticleFilter(veh,&nbsp;sensor,&nbsp;Q,&nbsp;L,&nbsp;1000);
+</pre>
+which is configured with 1000 particles.  The particles are initially
+uniformly distributed over the 3-dimensional configuration space.
+
+We run the simulation for 1000 time steps
+
+<pre style="width: 90%%;" class="examples">
+pf.run(1000);
+</pre>
+then plot the map and the true vehicle path
+
+<pre style="width: 90%%;" class="examples">
+map.plot();
+veh.plot_xy('b');
+</pre>
+and overlay the mean of the particle cloud
+
+<pre style="width: 90%%;" class="examples">
+pf.plot_xy('r');
+</pre>
+We can plot the standard deviation against time
+
+<pre style="width: 90%%;" class="examples">
+plot(pf.std(1:100,:))
+</pre>
+The particles are a sampled approximation to the PDF and we can display
+this as
+
+<pre style="width: 90%%;" class="examples">
+pf.plot_pdf()
+</pre>
+<h2>Acknowledgement</h2>
+Based on code by Paul Newman, Oxford University,
+http://www.robots.ox.ac.uk/~pnewman
+
+<h2>Reference</h2>
+Robotics, Vision &amp; Control,
+Peter Corke,
+Springer 2011
+
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Vehicle">Vehicle</a>, <a href="matlab:doc RandomPath">RandomPath</a>, <a href="matlab:doc RangeBearingSensor">RangeBearingSensor</a>, <a href="matlab:doc Map">Map</a>, <a href="matlab:doc EKF">EKF</a></p>
+<hr>
+<a name="ParticleFilter"><h1>ParticleFilter.ParticleFilter</h1></a>
+<p><span class="helptopic">Particle filter constructor</span></p><strong>pf</strong> = <span style="color:red>ParticleFilter</span>(<strong>vehicle</strong>, <strong>sensor</strong>, <strong>q</strong>, <strong>L</strong>, <strong>np</strong>) is a particle
+filter that estimates the state of the <strong>vehicle</strong> with a sensor
+<strong>sensor</strong>.  <strong>q</strong> is covariance of the noise added to the particles
+at each step (diffusion), <strong>L</strong> is the covariance used in the
+sensor likelihood model, and <strong>np</strong> is the number of particles.
+
+<h2>Notes</h2>
+<ul>
+  <li>ParticleFilter subclasses Handle, so it is a reference object.</li>
+  <li>the initial particle distribution is uniform over the map,
+essentially the kidnapped robot problem which is unrealistic</li>
+</ul>
+<h2>See also</h2>
+<p>
+<a href="matlab:doc Vehicle">Vehicle</a>, <a href="matlab:doc Sensor">Sensor</a>, <a href="matlab:doc RangeBearingSensor">RangeBearingSensor</a>, <a href="matlab:doc Map">Map</a></p>
+<hr>
+<a name="plot_pdf"><h1>ParticleFilter.plot_pdf</h1></a>
+<p><span class="helptopic">Plot particles as a PDF</span></p>PF.<span style="color:red>plot_pdf</span>() plots a sparse PDF as a series of vertical line
+segments of height equal to particle weight.
+
+<hr>
+<a name="plot_xy"><h1>ParticleFilter.plot_xy</h1></a>
+<p><span class="helptopic">Plot vehicle position</span></p>PF.<span style="color:red>plot_xy</span>() plot the estimated vehicle path in the xy-plane.
+
+PF.<span style="color:red>plot_xy</span>(<strong>ls</strong>) as above but the optional line style arguments
+<strong>ls</strong> are passed to plot.
+
+<hr>
+<a name="run"><h1>ParticleFilter.run</h1></a>
+<p><span class="helptopic">Run the particle filter</span></p>PF.<span style="color:red>run</span>(<strong>n</strong>) <span style="color:red>run</span> the filter for <strong>n</strong> time steps.
+
+<h2>Notes</h2>
+<ul>
+  <li>all previously estimated states and estimation history is
+cleared.</li>
+</ul>
+<hr>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr class="subheader" valign="top"><td>&nbsp;</td></tr></table>
+<p class="copy">&copy; 1990-2011 Peter Corke.</p>
+</body></html>
